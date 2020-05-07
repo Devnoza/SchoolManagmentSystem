@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "RegistrationPage";
+}
+
+<style>
+    body {
+        position: absolute;
+        background-color: #141414;
+        color: white;
+    }
+
+    .textbox {
+        border-color: orange;
+        border-radius: 15px 15px;
+        color: black;
+    }
+
+    .button {
+        background-color: orange;
+        border-color: darkorange;
+        border-radius: 15px 15px;
+        margin-left: 165px;
+    }
+</style>
+
+<script src="~/Scripts/functions.js"></script>
+
+<body>
+    <h2>Register</h2>
+
+    <p>
+        <text>Username</text>
+        <input class="textbox" type="text" />
+    </p>
+
+    <form name="passwordDiv">
+        <p>
+            <text>Password</text>
+            <input name="passwordBox" class="textbox" type="password" style="margin-left: 3px;" />
+            <input name="passwordCheckBox" type="checkbox" style="margin-left: 20px;" onclick="showPassword()"> Show Password
+        </p>
+    </form>
+
+    <p><input class="button" type="button" value="Login" /></p>
+
+</body>
