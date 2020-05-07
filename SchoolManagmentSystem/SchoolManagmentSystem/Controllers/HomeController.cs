@@ -30,7 +30,8 @@ namespace SchoolManagmentSystem.Controllers
         [HttpPost]
         public ActionResult Login(User model)
         {
-            var authenticatedUser = context.Users.Where(u => u.UserName == model.UserName & u.Password == model.Password).FirstOrDefault();
+            
+            User authenticatedUser = context.Users.Where(u => u.UserName == model.UserName).FirstOrDefault();
             if (authenticatedUser != null)
             {
                 sessionContext.SetAuthenticationToken(authenticatedUser.Id.ToString(), false, authenticatedUser);
