@@ -27,31 +27,31 @@
 
 <script src="~/Scripts/functions.js"></script>
 
-@Html.BeginForm()
+@using (Html.BeginForm())
 {
-@Html.AntiForgeryToken()
-
-<body>
-    <h2>Login</h2>
-
-    <p>
-        <text>Username</text>
-        @Html.TextBoxFor(model => model.UserName, new { htmlAttributes = new { @class = "textbox", @value = "" } });
-        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
-
-    </p>
-
-    <form name="passwordDiv">
+    @Html.AntiForgeryToken()
+    
+    <body>
+        <h2>Login</h2>
+    
         <p>
-            <text>Password</text>
-            <input name="passwordBox" class="textbox" type="password" style="margin-left: 3px;" />
-            @Html.TextBoxFor(model => model.Password, new { htmlAttributes = new { @name = "passwordBox", @class = "textbox", @type = "password", @style = "margin-left: 3px;", @value = "" } });
-            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-            <input name="passwordCheckBox" type="checkbox" style="margin-left: 20px;" onclick="showPassword()"> Show Password
+            <text>Username</text>
+            @Html.TextBoxFor(model => model.UserName, new { @class = "textbox", @value = "" })
+            @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+    
         </p>
-    </form>
-
-    <p><input class="button" type="submit" value="Login" /></p>
-
-</body>
+    
+        <form name="passwordDiv">
+            <p>
+                <text>Password</text>
+                @Html.TextBoxFor(model => model.Password, new { @name = "passwordBox", @class = "textbox", @type = "password", @style = "margin-left: 3px;", @value = "" })
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                <input name="passwordCheckBox" type="checkbox" style="margin-left: 20px;" onclick="showPassword()"> Show Password
+            </p>
+        </form>
+    
+        <p><input class="button" type="submit" value="Login" /></p>
+    
+    </body>
 }
+
