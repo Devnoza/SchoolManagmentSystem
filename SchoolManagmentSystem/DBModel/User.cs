@@ -11,11 +11,11 @@ namespace DBModel
     {
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Username is required")]
         [StringLength(100)]
         public string UserName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
         [StringLength(200)]
         public string Password { get; set; }
 

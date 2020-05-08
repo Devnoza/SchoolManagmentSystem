@@ -7,15 +7,11 @@ using System.Web.ModelBinding;
 using System.Web.Mvc;
 using System.Web.Security;
 using DBModel;
-using SchoolManagmentSystem.csScripts;
 
 namespace SchoolManagmentSystem.Controllers
 {
     public class HomeController : Controller
     {
-        Context context = new Context();
-        SessionContext sessionContext = new SessionContext();
-
         public ActionResult Index()
         {
             return View();
@@ -30,18 +26,19 @@ namespace SchoolManagmentSystem.Controllers
         [HttpPost]
         public ActionResult Login(User model)
         {
-            
-            User authenticatedUser = context.Users.Where(u => u.UserName == model.UserName).FirstOrDefault();
-            if (authenticatedUser != null)
+            using(Context context = new Context())
             {
-                sessionContext.SetAuthenticationToken(authenticatedUser.Id.ToString(), false, authenticatedUser);
-                return RedirectToAction("Profile", "UserProfile", "Account");
-            }
-            else
-            {
-                ModelState.AddModelError("", "Invalid Username or Password");
-                return View(model);
-            }
+                User authenticatedUser = context.Users.Where(u => u.UserName == model.UserName && u.Password == model.Password).FirstOrDefault();
+                if (authenticatedUser != null)
+                {
+                    return RedirectToAction("UserProfile", "Account");
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid Username or Password");
+                    return View(model);
+                }
+            }    
         }
 
         public ActionResult Logout()

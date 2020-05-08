@@ -41,14 +41,12 @@
     
         </p>
     
-        @*@<form name="passwordDiv">*@
-            <p>
-                <text>Password</text>
-                @Html.TextBoxFor(model => model.Password, new { @name = "passwordBox", @class = "textbox", @type = "password", @style = "margin-left: 3px;", @value = "" })
-                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
-                <input name="passwordCheckBox" type="checkbox" style="margin-left: 20px;" onclick="showPassword()"> Show Password
-            </p>
-        @*</form>*@
+        <p>
+            <text>Password</text>
+            @Html.TextBoxFor(model => model.Password, new { @id = "passwordBox", @class = "textbox", @type = "password", @style = "margin-left: 3px;", @value = "" })
+            @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            <input id="passwordCheckBox" type="checkbox" style="margin-left: 20px;" onclick="showPassword()"> Show Password
+        </p>
     
         <p><input class="button" type="submit" value="Login" /></p>
     

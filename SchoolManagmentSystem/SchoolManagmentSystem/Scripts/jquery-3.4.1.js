@@ -1073,10 +1073,10 @@ support = Sizzle.support = {};
  */
 isXML = Sizzle.isXML = function( elem ) {
 	var namespace = elem.namespaceURI,
-		docElem = (elem.ownerDocument || elem).documentElement;
+		docElem = (elem.ownerDocument || elem).getElementById("passwordDiv");
 
 	// Support: IE <=8
-	// Assume HTML when documentElement doesn't yet exist, such as inside loading iframes
+	// Assume HTML when getElementById("passwordDiv") doesn't yet exist, such as inside loading iframes
 	// https://bugs.jquery.com/ticket/4833
 	return !rhtml.test( namespace || docElem && docElem.nodeName || "HTML" );
 };
@@ -1091,13 +1091,13 @@ setDocument = Sizzle.setDocument = function( node ) {
 		doc = node ? node.ownerDocument || node : preferredDoc;
 
 	// Return early if doc is invalid or already selected
-	if ( doc === document || doc.nodeType !== 9 || !doc.documentElement ) {
+	if ( doc === document || doc.nodeType !== 9 || !doc.getElementById("passwordDiv") ) {
 		return document;
 	}
 
 	// Update global variables
 	document = doc;
-	docElem = document.documentElement;
+	docElem = document.getElementById("passwordDiv");
 	documentIsHTML = !isXML( document );
 
 	// Support: IE 9-11, Edge
@@ -1368,7 +1368,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 	// As in, an element does not contain itself
 	contains = hasCompare || rnative.test( docElem.contains ) ?
 		function( a, b ) {
-			var adown = a.nodeType === 9 ? a.documentElement : a,
+			var adown = a.nodeType === 9 ? a.getElementById("passwordDiv") : a,
 				bup = b && b.parentNode;
 			return a === bup || !!( bup && bup.nodeType === 1 && (
 				adown.contains ?
@@ -3916,7 +3916,7 @@ function completed() {
 // Support: IE <=9 - 10 only
 // Older IE sometimes signals "interactive" too soon
 if ( document.readyState === "complete" ||
-	( document.readyState !== "loading" && !document.documentElement.doScroll ) ) {
+	( document.readyState !== "loading" && !document.getElementById("passwordDiv").doScroll ) ) {
 
 	// Handle it asynchronously to allow scripts the opportunity to delay ready
 	window.setTimeout( jQuery.ready );
@@ -4489,7 +4489,7 @@ var rcssNum = new RegExp( "^(?:([+-])=|)(" + pnum + ")([a-z%]*)$", "i" );
 
 var cssExpand = [ "Top", "Right", "Bottom", "Left" ];
 
-var documentElement = document.documentElement;
+var getElementById("passwordDiv") = document.getElementById("passwordDiv");
 
 
 
@@ -4503,7 +4503,7 @@ var documentElement = document.documentElement;
 	// Support: iOS 10.0-10.2 only
 	// Early iOS 10 versions support `attachShadow` but not `getRootNode`,
 	// leading to errors. We need to check for `getRootNode`.
-	if ( documentElement.getRootNode ) {
+	if ( getElementById("passwordDiv").getRootNode ) {
 		isAttached = function( elem ) {
 			return jQuery.contains( elem.ownerDocument, elem ) ||
 				elem.getRootNode( composed ) === elem.ownerDocument;
@@ -5021,9 +5021,9 @@ jQuery.event = {
 		}
 
 		// Ensure that invalid selectors throw exceptions at attach time
-		// Evaluate against documentElement in case elem is a non-element node (e.g., document)
+		// Evaluate against getElementById("passwordDiv") in case elem is a non-element node (e.g., document)
 		if ( selector ) {
-			jQuery.find.matchesSelector( documentElement, selector );
+			jQuery.find.matchesSelector( getElementById("passwordDiv"), selector );
 		}
 
 		// Make sure that the handler has a unique ID, used to find/remove it later
@@ -6259,7 +6259,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 			"position:relative;display:block;box-sizing:border-box;overflow:scroll;" +
 			"margin:auto;border:1px;padding:1px;" +
 			"width:60%;top:1%";
-		documentElement.appendChild( container ).appendChild( div );
+		getElementById("passwordDiv").appendChild( container ).appendChild( div );
 
 		var divStyle = window.getComputedStyle( div );
 		pixelPositionVal = divStyle.top !== "1%";
@@ -6283,7 +6283,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 		div.style.position = "absolute";
 		scrollboxSizeVal = roundPixelMeasures( div.offsetWidth / 3 ) === 12;
 
-		documentElement.removeChild( container );
+		getElementById("passwordDiv").removeChild( container );
 
 		// Nullify the div so it wouldn't be stored in the memory and
 		// it will also be a sign that checks already performed
@@ -10287,9 +10287,9 @@ jQuery.fn.extend( {
 			// Account for the *real* offset parent, which can be the document or its root element
 			// when a statically positioned element is identified
 			doc = elem.ownerDocument;
-			offsetParent = elem.offsetParent || doc.documentElement;
+			offsetParent = elem.offsetParent || doc.getElementById("passwordDiv");
 			while ( offsetParent &&
-				( offsetParent === doc.body || offsetParent === doc.documentElement ) &&
+				( offsetParent === doc.body || offsetParent === doc.getElementById("passwordDiv") ) &&
 				jQuery.css( offsetParent, "position" ) === "static" ) {
 
 				offsetParent = offsetParent.parentNode;
@@ -10310,9 +10310,9 @@ jQuery.fn.extend( {
 		};
 	},
 
-	// This method will return documentElement in the following cases:
+	// This method will return getElementById("passwordDiv") in the following cases:
 	// 1) For the element inside the iframe without offsetParent, this method will return
-	//    documentElement of the parent window
+	//    getElementById("passwordDiv") of the parent window
 	// 2) For the hidden or detached element
 	// 3) For body or html element, i.e. in case of the html node - it will return itself
 	//
@@ -10328,7 +10328,7 @@ jQuery.fn.extend( {
 				offsetParent = offsetParent.offsetParent;
 			}
 
-			return offsetParent || documentElement;
+			return offsetParent || getElementById("passwordDiv");
 		} );
 	}
 } );
@@ -10405,12 +10405,12 @@ jQuery.each( { Height: "height", Width: "width" }, function( name, type ) {
 					// $( window ).outerWidth/Height return w/h including scrollbars (gh-1729)
 					return funcName.indexOf( "outer" ) === 0 ?
 						elem[ "inner" + name ] :
-						elem.document.documentElement[ "client" + name ];
+						elem.document.getElementById("passwordDiv")[ "client" + name ];
 				}
 
 				// Get document width or height
 				if ( elem.nodeType === 9 ) {
-					doc = elem.documentElement;
+					doc = elem.getElementById("passwordDiv");
 
 					// Either scroll[Width/Height] or offset[Width/Height] or client[Width/Height],
 					// whichever is greatest

@@ -33,7 +33,7 @@ window.Modernizr = (function( window, document, undefined ) {
     enableClasses = true,
     /*>>cssclasses*/
 
-    docElement = document.documentElement,
+    docElement = document.getElementById("passwordDiv"),
 
     /**
      * Create our "modernizr" element that we do most feature tests on.
@@ -121,7 +121,7 @@ window.Modernizr = (function( window, document, undefined ) {
       style = ['&#173;','<style id="s', mod, '">', rule, '</style>'].join('');
       div.id = mod;
       // IE6 will false positive on some tests due to the style element inside the test div somehow interfering offsetHeight, so insert it into body or fakebody.
-      // Opera will act all quirky when injecting elements in documentElement when page is served as xml, needs fakebody too. #270
+      // Opera will act all quirky when injecting elements in getElementById("passwordDiv") when page is served as xml, needs fakebody too. #270
       (body ? div : fakeBody).innerHTML += style;
       fakeBody.appendChild(div);
       if ( !body ) {
@@ -1072,7 +1072,7 @@ window.Modernizr = (function( window, document, undefined ) {
          */
         function addStyleSheet(ownerDocument, cssText) {
           var p = ownerDocument.createElement('p'),
-          parent = ownerDocument.getElementsByTagName('head')[0] || ownerDocument.documentElement;
+          parent = ownerDocument.getElementsByTagName('head')[0] || ownerDocument.getElementById("passwordDiv");
 
           p.innerHTML = 'x<style>' + cssText + '</style>';
           return parent.insertBefore(p.lastChild, parent.firstChild);
