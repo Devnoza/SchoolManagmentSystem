@@ -1,0 +1,93 @@
+﻿@model DBModel.User
+@{
+    /**/
+
+    ViewBag.Title = "Authentication";
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+@using (Html.BeginForm())
+{
+    <h4>
+        <spam>მომხმარებელი :</spam> <br />@Html.TextBoxFor(x => x.UserName) <br />
+        @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
+        <br />
+        <spam class="surname">პაროლი :</spam> <br />@Html.TextBoxFor(x => x.Password) <br />
+        @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
+        <br />
+        <input type="submit" placeholder="" value="შევსება" class="btn btn-default" new { style="color:green" } />
+        <p class="wrong">@ViewBag.Message</p>
+    </h4> 
+
+}
+<script src="~/Scripts/jquery-3.4.1.slim.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<style>
+    input {
+        margin-top: 22px;
+        border: 2px solid;
+        height: 35px;
+        border-radius: 25px;
+        padding-left: 15px;
+    }
+
+    spam {
+        display: inline-block;
+        margin-left: 15px;
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    input.btn.btn-default {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        font-weight: bold;
+    }
+    p.wrong {
+        color: #bc4442;
+        margin: 5px 0px 0px 15px;
+        font-size: 13px;
+    }
+    input.btn.btn-default {
+        width: 256px;
+        height: 35px;
+        margin-top: 20px;
+    }
+
+    spam.surname {
+        margin-top: 5px;
+    }
+
+    input#Gender {
+        position: relative;
+        top: 4px;
+        left: 12px;
+        height: 15px;
+    }
+
+    spam.teacher {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    span.text-danger.field-validation-error {
+        margin-left: 15px;
+        font-size: 13px;
+    }
+
+
+    input#LastName {
+        margin-bottom: 0;
+    }
+
+    h4 {
+        color: black;
+        font-weight: bold;
+    }
+</style>

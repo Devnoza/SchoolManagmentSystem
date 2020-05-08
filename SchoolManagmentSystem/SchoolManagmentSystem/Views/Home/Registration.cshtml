@@ -1,0 +1,92 @@
+﻿@model DBModel.Person
+
+@{
+    ViewBag.Title = "რეგისტრაცია";
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+@using (Html.BeginForm("Registration", "Home", FormMethod.Post))
+{
+
+    <h4>
+        <spam>სახელი :</spam> <br />@Html.TextBoxFor(x => x.FirstName) <br />
+        @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
+        <br />
+        <spam class="surname">გვარი :</spam> <br />@Html.TextBoxFor(x => x.LastName) <br />
+        @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
+        <br />
+        <spam class="teacher">მასწავლებელი :</spam> @Html.CheckBoxFor(x => x.Gender) <br />
+
+
+        <input type="submit" placeholder="" value="შევსება" class="btn btn-default" new { style="color:green" } />
+    </h4>
+}
+
+<script src="~/Scripts/jquery-3.4.1.slim.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<style>
+    input {
+        margin-top: 22px;
+        border: 2px solid;
+        height: 35px;
+        border-radius: 25px;
+        padding-left: 15px;
+    }
+
+    spam {
+        display: inline-block;
+        margin-left: 15px;
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    input.btn.btn-default {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        font-weight: bold;
+    }
+
+    input.btn.btn-default {
+        width: 256px;
+        height: 35px;
+        margin-top: 20px;
+    }
+
+    spam.surname {
+        margin-top: 5px;
+    }
+
+    input#Gender {
+        position: relative;
+        top: 4px;
+        left: 12px;
+        height: 15px;
+    }
+
+    spam.teacher {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    span.text-danger.field-validation-error {
+        margin-left: 15px;
+        font-size: 13px;
+    }
+
+
+    input#LastName {
+        margin-bottom: 0;
+    }
+
+    h4 {
+        color: black;
+        font-weight: bold;
+    }
+</style>
