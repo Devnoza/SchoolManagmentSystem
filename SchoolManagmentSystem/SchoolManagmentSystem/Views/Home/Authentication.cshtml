@@ -1,8 +1,6 @@
 ﻿@model DBModel.User
 @{
-    /**/
-
-    ViewBag.Title = "Authentication";
+    ViewBag.Title = "აუთენთიპიკაცია";
 }
 <h2>@ViewBag.Title</h2>
 <hr />
@@ -12,7 +10,7 @@
         <spam>მომხმარებელი :</spam> <br />@Html.TextBoxFor(x => x.UserName) <br />
         @Html.ValidationMessageFor(x => x.UserName, "", new { @class = "text-danger" })
         <br />
-        <spam class="surname">პაროლი :</spam> <br />@Html.TextBoxFor(x => x.Password) <br />
+        <spam class="surname">პაროლი :</spam> <br />@Html.TextBoxFor(x => x.Password, new { @type = "password" }) <br />
         @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })
         <br />
         <input type="submit" placeholder="" value="შევსება" class="btn btn-default" new { style="color:green" } />
@@ -49,11 +47,14 @@
         color: black;
         font-weight: bold;
     }
+
     p.wrong {
         color: #bc4442;
-        margin: 5px 0px 0px 15px;
+        margin: 5px 0px 0px 0px;
         font-size: 13px;
+        text-align: center;
     }
+
     input.btn.btn-default {
         width: 256px;
         height: 35px;
@@ -89,5 +90,6 @@
     h4 {
         color: black;
         font-weight: bold;
+        width: 250px;
     }
 </style>

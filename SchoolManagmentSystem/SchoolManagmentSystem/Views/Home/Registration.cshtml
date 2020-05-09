@@ -5,21 +5,22 @@
 }
 <h2>@ViewBag.Title</h2>
 <hr />
-@using (Html.BeginForm("Registration", "Home", FormMethod.Post))
+@using (Html.BeginForm())
 {
 
-    <h4>
-        <spam>სახელი :</spam> <br />@Html.TextBoxFor(x => x.FirstName) <br />
-        @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
-        <br />
-        <spam class="surname">გვარი :</spam> <br />@Html.TextBoxFor(x => x.LastName) <br />
-        @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
-        <br />
-        <spam class="teacher">მასწავლებელი :</spam> @Html.CheckBoxFor(x => x.Gender) <br />
+<h4>
+    <spam>სახელი :</spam> <br />@Html.TextBoxFor(x => x.FirstName) <br />
+    @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
+    <br />
+    <spam class="surname">გვარი :</spam> <br />@Html.TextBoxFor(x => x.LastName) <br />
+    @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
+    <br />
+    <spam class="teacher">ბიჭჭი :</spam> @Html.CheckBoxFor(x => x.Gender) <br />
 
 
-        <input type="submit" placeholder="" value="შევსება" class="btn btn-default" new { style="color:green" } />
-    </h4>
+    <input type="submit" placeholder="" value="შევსება" class="btn btn-default" new { style="color:green" } />
+    <p class="wrong">@ViewBag.Message</p>
+</h4>
 }
 
 <script src="~/Scripts/jquery-3.4.1.slim.js"></script>
@@ -27,6 +28,12 @@
 <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
 <style>
+    p.wrong {
+        color: #bc4442;
+        margin: 5px 0px 0px 0px;
+        text-align: center;
+        font-size: 13px;
+    }
     input {
         margin-top: 22px;
         border: 2px solid;

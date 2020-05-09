@@ -5,14 +5,24 @@ using System.Web;
 using System.Web.Mvc;
 using DBModel;
 
+
 namespace SchoolManagmentSystem.Controllers
 {
     public class HomeController : Controller
     {
 
         Context context = new Context();
+        bool b;
         public ActionResult Index()
         {
+            if (context.Users.Count() == 0)
+            {
+                ViewBag.Message = "არ არსებობს არცერთი ანგარიში, გაიარეთ რეგისტრაცია";               
+            }
+            else
+            {
+                ViewBag.Message = context.Users.Count();
+            }
             return View();
         }
 
@@ -25,31 +35,64 @@ namespace SchoolManagmentSystem.Controllers
         [HttpPost]
         public ActionResult Authentication(User u)
         {
-            try
+            
+            if (context.Users.Count() != 0)
             {
 
-                User momxmareblebi = context.Users.Where(x => x.UserName == u.UserName & x.Password == u.Password).FirstOrDefault();
-                if (context.Users.Contains(momxmareblebi))
+                User momxmarebeli = context.Users.FirstOrDefault(x => x.Email == u.Email && x.Password == u.Password);
+
+                if (momxmarebeli != null)
                 {
-                    ViewBag.Message = string.Empty;
-                    return View();                    
+                    return RedirectToAction("Profile", "Home");
                 }
-                else
+                else if (momxmarebeli == null)
                 {
                     ViewBag.Message = "არასწორი მომხმარებელი ან პაროლი";
                     return View();
                 }
-
+                else
+                {
+                    ViewBag.Message = "მოხდა შეცდმა";
+                    return View();
+                }
             }
-            catch (Exception)
+            else
             {
-                ViewBag.Message = "არასწორი მომხმარებელი ან პაროლი";
+                ViewBag.Message = "არ არსებობს არცერთი ანგარიში, გაიარეთ რეგისტრაცია";
                 return View();
             }
 
         }
+        [HttpGet]
         public ActionResult Registration()
         {
+            Person p = new Person();
+            return View(p);
+        }
+
+        [HttpPost]
+        public ActionResult Registration(Person p)
+        {
+            Person momxmarebeli = context.People.FirstOrDefault(x => x.FirstName == p.FirstName && x.LastName == p.LastName && x.Gender == p.Gender);
+            if (momxmarebeli != null)
+            {
+                ViewBag.Message = "ესეთი ანგარიში უკვე არსებობს";
+                return View(p);
+            }
+            else
+            {
+                context.People.Add(p);
+                context.SaveChanges();
+                Session["activeaprofile"] = p.Id;
+                bool b = true;
+                return RedirectToAction("Profile", "Home");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Profile <T>(T personoruser)
+        {
+            string activeprofile = Session["activeprofile"].ToString();
             return View();
         }
 

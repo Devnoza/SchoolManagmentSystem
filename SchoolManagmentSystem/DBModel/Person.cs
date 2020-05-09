@@ -1,4 +1,4 @@
-namespace DBModel
+﻿namespace DBModel
 {
     using System;
     using System.Collections.Generic;
@@ -19,11 +19,11 @@ namespace DBModel
 
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "შეავსეთ სახელი")]
         [StringLength(200)]
         public string FirstName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "შეავსეთ პაროლი")]
         [StringLength(200)]
         public string LastName { get; set; }
 
