@@ -1,0 +1,4 @@
+﻿DBCC CHECKIDENT ('[TableName]', RESEED, 0);
+GO
+ჩემი სერვერის კოდი -
+DESKTOP-66K2I1N\SQLEXPRESS

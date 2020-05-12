@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using DBModel;
+using SchoolManagmentSystem;
 
 
 namespace SchoolManagmentSystem.Controllers
@@ -12,7 +13,7 @@ namespace SchoolManagmentSystem.Controllers
     {
 
         Context context = new Context();
-        bool b;
+        RegistrationView activeprofile = new RegistrationView();
         public ActionResult Index()
         {
             if (context.Users.Count() == 0)
@@ -35,14 +36,23 @@ namespace SchoolManagmentSystem.Controllers
         [HttpPost]
         public ActionResult Authentication(User u)
         {
-            
+
             if (context.Users.Count() != 0)
-            {
+            { 
 
                 User momxmarebeli = context.Users.FirstOrDefault(x => x.Email == u.Email && x.Password == u.Password);
 
                 if (momxmarebeli != null)
                 {
+
+            User viewuser = context.Users.FirstOrDefault(x => x.UserName == u.UserName);
+            var getid = viewuser.PersonId;
+            Person viewperson = context.People.FirstOrDefault(x => x.Id == getid);
+            RegistrationView view = new RegistrationView()
+            { FirstName = viewperson.FirstName, LastName = viewperson.LastName, Gender = viewperson.Gender, Email = viewuser.Email, Username = viewuser.UserName, Password = viewuser.Password};
+
+
+                    activeprofile = view;
                     return RedirectToAction("Profile", "Home");
                 }
                 else if (momxmarebeli == null)
@@ -66,33 +76,64 @@ namespace SchoolManagmentSystem.Controllers
         [HttpGet]
         public ActionResult Registration()
         {
-            Person p = new Person();
-            return View(p);
+            RegistrationView view = new RegistrationView();
+            return View(view);
         }
 
         [HttpPost]
-        public ActionResult Registration(Person p)
+        public ActionResult Registration(RegistrationView p)
         {
-            Person momxmarebeli = context.People.FirstOrDefault(x => x.FirstName == p.FirstName && x.LastName == p.LastName && x.Gender == p.Gender);
-            if (momxmarebeli != null)
+
+            var argameordes = context.Users.FirstOrDefault(x => x.UserName == p.Username);
+            if (argameordes == null)
             {
-                ViewBag.Message = "ესეთი ანგარიში უკვე არსებობს";
-                return View(p);
+
+
+                if (p.Email.ToLower().EndsWith("@mail.ru") || p.Email.ToLower().EndsWith("@gmail.com"))
+                {
+                    activeprofile = p;
+                    Person persondsm = new Person() { FirstName = p.FirstName, LastName = p.LastName, Gender = p.Gender };
+                    context.People.Add(persondsm);
+                    context.SaveChanges();
+                    int intIdt = context.People.Max(u => u.Id);
+                    User userdsm = new User() { Email = p.Email, UserName = p.Username, Password = p.Password, PersonId = intIdt, RoleId = p.Role };
+                    context.Users.Add(userdsm);
+                    context.SaveChanges();
+                    User userdsm1 = context.Users.FirstOrDefault(x => x.UserName == userdsm.UserName);
+                    int introle = userdsm1.RoleId;
+                    if (introle == 1)
+                    {
+                        Student studentdsm = new Student() { PersonId = intIdt, TypeId = 1 };
+                        context.Students.Add(studentdsm);
+                        context.SaveChanges();
+                    }
+                    else if(introle == 2)
+                    {
+                        Teacher teacherdsm = new Teacher() { PersonId = intIdt, TypeId = 1 };
+                        context.Teachers.Add(teacherdsm);
+                        context.SaveChanges();
+                    }
+
+                    return RedirectToAction("Profile", "Home");
+                }
+                else
+                {
+                    ViewBag.Message = string.Empty;
+                    ViewBag.Message = "არასწორი იმეილი";
+                    return View(p);
+                }
             }
             else
             {
-                context.People.Add(p);
-                context.SaveChanges();
-                Session["activeaprofile"] = p.Id;
-                bool b = true;
-                return RedirectToAction("Profile", "Home");
+                ViewBag.Message = "ასეთი მომხმარებელი უკვე არსებობს";
+                return View(p);
             }
+
         }
 
-        [HttpPost]
-        public ActionResult Profile <T>(T personoruser)
+       
+        public ActionResult Profile()
         {
-            string activeprofile = Session["activeprofile"].ToString();
             return View();
         }
 

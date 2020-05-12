@@ -1,5 +1,5 @@
-﻿@model DBModel.Person
-
+﻿@model SchoolManagmentSystem.RegistrationView
+    
 @{
     ViewBag.Title = "რეგისტრაცია";
 }
@@ -8,19 +8,34 @@
 @using (Html.BeginForm())
 {
 
-<h4>
-    <spam>სახელი :</spam> <br />@Html.TextBoxFor(x => x.FirstName) <br />
-    @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
-    <br />
-    <spam class="surname">გვარი :</spam> <br />@Html.TextBoxFor(x => x.LastName) <br />
-    @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
-    <br />
-    <spam class="teacher">ბიჭჭი :</spam> @Html.CheckBoxFor(x => x.Gender) <br />
+    <h4>
+        <spam>სახელი :</spam> <br />@Html.TextBoxFor(x => x.FirstName) <br />
+        @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
+        <br />
+        <spam class="surname">გვარი :</spam> <br />@Html.TextBoxFor(x => x.LastName) <br />
+        @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
+        <br />
 
+        <p>სქესი :</p>
+        @Html.DropDownListFor(modelItem => modelItem.Gender, new[] { new SelectListItem { Text = "მდედრობითი", Value = "true" }, new SelectListItem { Text = "მამრობითი", Value = "false" } }, new { @class = "form-control" })
 
-    <input type="submit" placeholder="" value="შევსება" class="btn btn-default" new { style="color:green" } />
-    <p class="wrong">@ViewBag.Message</p>
-</h4>
+        <br />
+        <p>მომხმარებელი : </p>
+        @Html.TextBoxFor(x => x.Username)<br />
+        @Html.ValidationMessageFor(x => x.Username, "", new { @class = "text-danger" })<br />
+        <p>იმეილი : </p>
+        @Html.TextBoxFor(x => x.Email)<br />
+        @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })<br />
+        <p>პაროლი : </p>
+        @Html.TextBoxFor(x => x.Password)<br />
+        @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })<br />
+        <p>წოდება : </p>
+        @Html.DropDownListFor(modelItem => modelItem.Role, new[] { new SelectListItem { Text = "მოსწავლე", Value = "1" }, new SelectListItem { Text = "მასწავლებელი", Value = "2" }, new SelectListItem { Text = "ადმინი", Value = "3" } }, new { @class = "form-control" })
+        <br />
+
+        <input type="submit" placeholder="" value="შევსება" class="btn btn-default" new { style="color:green" } />
+        <p class="wrong">@ViewBag.Message</p>
+    </h4>
 }
 
 <script src="~/Scripts/jquery-3.4.1.slim.js"></script>
@@ -34,6 +49,7 @@
         text-align: center;
         font-size: 13px;
     }
+
     input {
         margin-top: 22px;
         border: 2px solid;

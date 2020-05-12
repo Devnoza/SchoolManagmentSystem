@@ -71,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DBScript.txt" />
+    <Content Include="Identyseedგანულება.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
