@@ -10,10 +10,10 @@ using SchoolManagmentSystem;
 namespace SchoolManagmentSystem.Controllers
 {
     public class HomeController : Controller
-    {
-
+    {        
         Context context = new Context();
-        RegistrationView activeprofile = new RegistrationView();
+
+
         public ActionResult Index()
         {
             if (context.Users.Count() == 0)
@@ -33,6 +33,7 @@ namespace SchoolManagmentSystem.Controllers
             User u = new User();
             return View(u);
         }
+
         [HttpPost]
         public ActionResult Authentication(User u)
         {
@@ -40,19 +41,11 @@ namespace SchoolManagmentSystem.Controllers
             if (context.Users.Count() != 0)
             { 
 
-                User momxmarebeli = context.Users.FirstOrDefault(x => x.Email == u.Email && x.Password == u.Password);
+                User momxmarebeli = context.Users.FirstOrDefault(x => x.UserName == u.UserName && x.Password == u.Password);
 
                 if (momxmarebeli != null)
                 {
-
-            User viewuser = context.Users.FirstOrDefault(x => x.UserName == u.UserName);
-            var getid = viewuser.PersonId;
-            Person viewperson = context.People.FirstOrDefault(x => x.Id == getid);
-            RegistrationView view = new RegistrationView()
-            { FirstName = viewperson.FirstName, LastName = viewperson.LastName, Gender = viewperson.Gender, Email = viewuser.Email, Username = viewuser.UserName, Password = viewuser.Password};
-
-
-                    activeprofile = view;
+                    Session["viewid"] = momxmarebeli.PersonId;
                     return RedirectToAction("Profile", "Home");
                 }
                 else if (momxmarebeli == null)
@@ -91,7 +84,6 @@ namespace SchoolManagmentSystem.Controllers
 
                 if (p.Email.ToLower().EndsWith("@mail.ru") || p.Email.ToLower().EndsWith("@gmail.com"))
                 {
-                    activeprofile = p;
                     Person persondsm = new Person() { FirstName = p.FirstName, LastName = p.LastName, Gender = p.Gender };
                     context.People.Add(persondsm);
                     context.SaveChanges();
@@ -113,7 +105,7 @@ namespace SchoolManagmentSystem.Controllers
                         context.Teachers.Add(teacherdsm);
                         context.SaveChanges();
                     }
-
+                    Session["viewid"] = intIdt;
                     return RedirectToAction("Profile", "Home");
                 }
                 else
@@ -131,10 +123,52 @@ namespace SchoolManagmentSystem.Controllers
 
         }
 
-       
         public ActionResult Profile()
         {
-            return View();
+
+
+                int viewid = int.Parse(Session["viewid"].ToString());
+                User viewuser = context.Users.FirstOrDefault(x => x.PersonId == viewid);
+                Person viewperson = context.People.FirstOrDefault(x => x.Id == viewid);
+                ViewBag.Firstname = viewperson.FirstName;
+                ViewBag.Lastname = viewperson.LastName;
+                if (viewperson.Gender == false)
+                {
+                    ViewBag.Gender = "მამრობითი";
+                }
+                else
+                {
+                    ViewBag.Gender = "მდედრობითი";
+                }
+                ViewBag.Username = viewuser.UserName;
+                ViewBag.Email = viewuser.Email;
+                Teacher teacher = context.Teachers.FirstOrDefault(x => x.PersonId == viewid);
+                Student student = context.Students.FirstOrDefault(x => x.PersonId == viewid);
+                if (teacher != null)
+                {
+                    if (teacher.TypeId == 1)
+                    {
+                        TeacherType view = context.TeacherTypes.FirstOrDefault(x => x.Id == 1);
+                        ViewBag.Role = view.Name;
+                    }
+                    else
+                    {
+                        TeacherType view = context.TeacherTypes.FirstOrDefault(x => x.Id == 2);
+                        ViewBag.Role = view.Name;
+                    }
+                }
+                else if (student != null)
+                {
+                    if (student.TypeId == 1)
+                    {
+                        StudentType view = context.StudentTypes.FirstOrDefault(x => x.Id == 1);
+                        ViewBag.Role = view.Name;
+                    }
+                }
+                return View();
+            }
+
+
         }
 
     }

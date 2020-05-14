@@ -25,7 +25,7 @@ namespace SchoolManagmentSystem
         [Required(ErrorMessage = "შეავსეთ იმეილი")]
         public string Email { get; set; }
         
-        [Required(ErrorMessage = "შეავსეთ ვინაობა")]
+        [Required(ErrorMessage = "შეავსეთ წოდება")]
         public int Role { get; set; }
 
     }

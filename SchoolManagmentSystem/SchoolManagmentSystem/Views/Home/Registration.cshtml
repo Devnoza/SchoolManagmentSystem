@@ -7,7 +7,6 @@
 <hr />
 @using (Html.BeginForm())
 {
-
     <h4>
         <spam>სახელი :</spam> <br />@Html.TextBoxFor(x => x.FirstName) <br />
         @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
@@ -17,7 +16,7 @@
         <br />
 
         <p>სქესი :</p>
-        @Html.DropDownListFor(modelItem => modelItem.Gender, new[] { new SelectListItem { Text = "მდედრობითი", Value = "true" }, new SelectListItem { Text = "მამრობითი", Value = "false" } }, new { @class = "form-control" })
+        @Html.DropDownListFor(modelItem => modelItem.Gender, new[] { new SelectListItem { Text = "მამრობითი", Value = "false" }, new SelectListItem { Text = "მდედრობითი", Value = "true" } }, new { @class = "form-control" })
 
         <br />
         <p>მომხმარებელი : </p>
@@ -27,7 +26,7 @@
         @Html.TextBoxFor(x => x.Email)<br />
         @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })<br />
         <p>პაროლი : </p>
-        @Html.TextBoxFor(x => x.Password)<br />
+        @Html.TextBoxFor(x => x.Password, new { @type = "password" })<br />
         @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })<br />
         <p>წოდება : </p>
         @Html.DropDownListFor(modelItem => modelItem.Role, new[] { new SelectListItem { Text = "მოსწავლე", Value = "1" }, new SelectListItem { Text = "მასწავლებელი", Value = "2" }, new SelectListItem { Text = "ადმინი", Value = "3" } }, new { @class = "form-control" })
@@ -48,6 +47,18 @@
         margin: 5px 0px 0px 0px;
         text-align: center;
         font-size: 13px;
+    }
+
+    p {
+        margin-left: 15px;
+    }
+
+
+    select#Gender, select#Role {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        margin-top: 22px;
     }
 
     input {

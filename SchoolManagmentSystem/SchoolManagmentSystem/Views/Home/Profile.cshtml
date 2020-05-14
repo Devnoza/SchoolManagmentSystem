@@ -8,5 +8,51 @@
 {
     <h2>@ViewBag.Title</h2>
     <hr />
+   <div class="profile">
+       <h4>
+           <div class="form">
+               <p class="prof">სახელი : </p>
+               <span>@ViewBag.Firstname</span>
+           </div>
+           <div class="form">
+               <p class="prof">გვარი :</p>
+               <span> @ViewBag.Lastname</span>
+           </div>
+           <div class="form">
+               <p class="prof">სქესი :</p>
+               <span> @ViewBag.Gender</span>
+           </div>
+           <div class="form">
+               <p class="prof">მომხმარებელი : </p>
+               <span> @ViewBag.Username</span>
+           </div>
+           <div class="form">
+               <p class="prof">იმეილი :  </p>
+               <span> @ViewBag.Email</span>
+           </div>
+           <div class="form">
+               <p class="prof">წოდება :</p>
+               <span>  @ViewBag.Role</span>
+           </div>
+       </h4>
+    </div>
+        }
+<style>
+    .profile {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
 
-}
+    h4 {
+        width: 400px;
+    }
+    .form{
+        display:flex;
+    }
+    p.prof {
+        font-weight: bold;
+        font-size: 20px;
+        color:black;
+    }
+</style>
