@@ -38,16 +38,18 @@ namespace SchoolManagmentSystem.Controllers
             }
         }
 
+        public ActionResult LogOff()
+        {
+            Session["Username"] = string.Empty;
+            Session["UserId"] = string.Empty;
+            return RedirectToAction("LoginView", "Login");
+        }
+
         public ActionResult UnAuthorizedView()
         {
             ViewBag.Message = "UnAuthorized";
 
             return View();
         }
-
-
-
-
-
     }
 }

@@ -2,25 +2,28 @@
 
 @{
     ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Login-Logoff.cshtml";
 }
 
 <style>
-    .btn-primary {
+    .MyButton {
         background-color: #1a73e8;
         border-radius: 6px;
+        border: solid;
+        border-color: #1a73e8;
         display: inline-block;
         cursor: pointer;
         color: #ffffff;
         font-family: 'Open Sans';
         font-size: 15px;
         font-weight: bold;
-        padding: 6px 18px;
+        padding: 4px 18px;
         text-decoration: none;
     }
 
-    .btn-primary:active {
-        background-color: #ffffff;
-    }
+        .MyButton:hover {
+            background-color: #4089ec;
+        }
 
     .textbox {
         background-color: transparent;
@@ -36,11 +39,9 @@
         margin-top: 1px;
     }
 
-    .textbox:hover {
-        background-color: #d1e3fa;
-    }
-
-
+        .textbox:hover {
+            background-color: #d1e3fa;
+        }
 </style>
 
 <h2 style="font-family:'Open Sans'">Login</h2>
@@ -59,7 +60,7 @@
             @Html.PasswordFor(m => m.Password, new { @class = "textbox" })
             @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
         </div>
-        <input type="submit" style="margin-top:8px" value="Login" class="btn btn-primary" />
+        <input type="submit" style="margin-top:8px" value="Login" class="MyButton" />
     </div>
 }
 

@@ -1,8 +1,36 @@
 ﻿
 @{
     ViewBag.Title = "UnAuthorized";
+    Layout = "~/Views/Shared/_Login-Logoff.cshtml";
 }
 
-<h2>Error</h2>
-<h3>@ViewBag.Message</h3>
+<style>
+    .MyButton {
+        background-color: #1a73e8;
+        border-radius: 6px;
+        border: solid;
+        border-color: #1a73e8;
+        display: inline-block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: 'Open Sans';
+        font-size: 15px;
+        font-weight: bold;
+        padding: 4px 18px;
+        text-decoration: none;
+    }
+
+        .MyButton:hover {
+            background-color: #4089ec;
+        }
+</style>
+
+
+
+<h2 style="font-family:'Open Sans'">Error</h2>
+<h3 style="font-family:'Open Sans'">@ViewBag.Message</h3>
+<div class="form-horizontal">
+    <input type="button" style="margin-top:8px" value="Back to Login Page" class="MyButton" onclick='window.location.href = "@Url.Action("LoginView", "Login")"' />
+</div>
+
 
