@@ -37,5 +37,17 @@ namespace SchoolManagmentSystem.Controllers
                 }
             }
         }
+
+        public ActionResult UnAuthorizedView()
+        {
+            ViewBag.Message = "UnAuthorized";
+
+            return View();
+        }
+
+
+
+
+
     }
 }

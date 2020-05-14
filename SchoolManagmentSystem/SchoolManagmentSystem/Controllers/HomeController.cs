@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SchoolManagmentSystem.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,6 +9,7 @@ namespace SchoolManagmentSystem.Controllers
 {
     public class HomeController : Controller
     {
+        [CustomAuthorize("Admin")]
         public ActionResult Index()
         {
             return View();
