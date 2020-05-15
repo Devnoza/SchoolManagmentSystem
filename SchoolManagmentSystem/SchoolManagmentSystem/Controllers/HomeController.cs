@@ -5,15 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using DBModel;
 using SchoolManagmentSystem;
-
+using SchoolManagmentSystem.Filters;
 
 namespace SchoolManagmentSystem.Controllers
 {
     public class HomeController : Controller
     {        
         Context context = new Context();
-
-
         public ActionResult Index()
         {
             if (context.Users.Count() == 0)
@@ -105,6 +103,7 @@ namespace SchoolManagmentSystem.Controllers
                         context.Teachers.Add(teacherdsm);
                         context.SaveChanges();
                     }
+                
                     Session["viewid"] = intIdt;
                     return RedirectToAction("Profile", "Home");
                 }
@@ -122,7 +121,6 @@ namespace SchoolManagmentSystem.Controllers
             }
 
         }
-
         public ActionResult Profile()
         {
 
@@ -166,9 +164,60 @@ namespace SchoolManagmentSystem.Controllers
                     }
                 }
                 return View();
+           
+        }
+
+
+        public ActionResult UnAuthorized()
+        {
+            return View();
+        }
+        [HttpGet]
+        public ActionResult EditProfile()
+        {
+            int id = int.Parse(Session["viewid"].ToString());
+            Person view = context.People.FirstOrDefault(x => x.Id == id);
+            User viewuser = context.Users.FirstOrDefault(x => x.PersonId == id);
+            RegistrationView viewreg = new RegistrationView()
+            { FirstName = view.FirstName, LastName = view.LastName, Gender = view.Gender, Username = viewuser.UserName,
+                Email = viewuser.Email, Password = viewuser.Password, Role = viewuser.RoleId };
+            return View(viewreg);
+        }
+        [HttpPost]
+        public ActionResult EditProfile(RegistrationView redact)
+        {
+            int id = int.Parse(Session["viewid"].ToString());
+            Person predact = context.People.FirstOrDefault(x => x.Id == id);
+            predact.FirstName = redact.FirstName;
+            predact.LastName = redact.LastName;
+            predact.Gender = redact.Gender;
+            User uredact = context.Users.FirstOrDefault(x => x.PersonId == id);
+            uredact.UserName = redact.Username;
+            uredact.Email = redact.Email;
+            uredact.Password = redact.Password;
+            context.SaveChanges();
+            return RedirectToAction("Profile", "Home");
+        }
+       
+        public ActionResult DeleteProfile()
+        {
+            int id = int.Parse(Session["viewid"].ToString());
+            Person pdelet = context.People.FirstOrDefault(x => x.Id == id);
+            User udelet = context.Users.FirstOrDefault(x => x.PersonId == id);
+            Teacher tdelet = context.Teachers.FirstOrDefault(x => x.PersonId == id);
+            Student sdelet = context.Students.FirstOrDefault(x => x.PersonId == id);
+            context.People.Remove(pdelet);
+            context.Users.Remove(udelet);
+            if (sdelet != null)
+            {
+            context.Students.Remove(sdelet);
             }
-
-
+            else
+            {
+            context.Teachers.Remove(tdelet);
+            }            
+            context.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
 
     }

@@ -1,0 +1,127 @@
+﻿@model SchoolManagmentSystem.RegistrationView
+@{
+    ViewBag.Title = "რედაქტირება";
+}
+<h2>@ViewBag.Title</h2>
+@using (Html.BeginForm())
+{
+    <h4>
+        <spam>სახელი :</spam> <br />@Html.TextBoxFor(x => x.FirstName) <br />
+        @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
+        <br />
+        <spam class="surname">გვარი :</spam> <br />@Html.TextBoxFor(x => x.LastName) <br />
+        @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
+        <br />
+
+        <p>სქესი :</p>
+        @Html.DropDownListFor(modelItem => modelItem.Gender, new[] { new SelectListItem { Text = "მამრობითი", Value = "false" }, new SelectListItem { Text = "მდედრობითი", Value = "true" } }, new { @class = "form-control" })
+
+        <br />
+        <p>მომხმარებელი : </p>
+        @Html.TextBoxFor(x => x.Username)<br />
+        @Html.ValidationMessageFor(x => x.Username, "", new { @class = "text-danger" })<br />
+        <p>იმეილი : </p>
+        @Html.TextBoxFor(x => x.Email)<br />
+        @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })<br />
+        <p>პაროლი : </p>
+        @Html.TextBoxFor(x => x.Password, new { @type = "password" })<br />
+        @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })<br />
+        <br />
+
+        <input type="submit" placeholder="" value="რედაქტირება" class="btn btn-default" new { style="color:green" } />
+        <br />
+
+        <p class="wrong">@ViewBag.Message</p>
+    </h4>
+}
+@using (Html.BeginForm("DeleteProfile", "Home", FormMethod.Post))
+{
+<input type="submit" placeholder="" value="ანგარიშის წაშლა" class="btn btn-default" new { style="color:red" } />
+}
+<script src="~/Scripts/jquery-3.4.1.slim.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+<style>
+    p.wrong {
+        color: #bc4442;
+        margin: 5px 0px 0px 0px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    p {
+        margin-left: 15px;
+    }
+
+
+    select#Gender, select#Role {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        margin-top: 22px;
+    }
+
+    input {
+        margin-top: 22px;
+        border: 2px solid;
+        height: 35px;
+        border-radius: 25px;
+        padding-left: 15px;
+    }
+
+    spam {
+        display: inline-block;
+        margin-left: 15px;
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    input.btn.btn-default {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        font-weight: bold;
+    }
+
+    input.btn.btn-default {
+        width: 256px;
+        height: 35px;
+        margin-top: 20px;
+    }
+
+    spam.surname {
+        margin-top: 5px;
+    }
+
+    input#Gender {
+        position: relative;
+        top: 4px;
+        left: 12px;
+        height: 15px;
+    }
+
+    spam.teacher {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    span.text-danger.field-validation-error {
+        margin-left: 15px;
+        font-size: 13px;
+    }
+
+
+    input#LastName {
+        margin-bottom: 0;
+    }
+
+    h4 {
+        color: black;
+        font-weight: bold;
+    }
+</style>
