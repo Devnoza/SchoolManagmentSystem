@@ -173,7 +173,7 @@ namespace SchoolManagmentSystem.Controllers
             return View();
         }
         [HttpGet]
-        public ActionResult EditProfile()
+        public ActionResult EditProfile() 
         {
             int id = int.Parse(Session["viewid"].ToString());
             Person view = context.People.FirstOrDefault(x => x.Id == id);
