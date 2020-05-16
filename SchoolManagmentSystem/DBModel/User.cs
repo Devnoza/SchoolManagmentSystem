@@ -20,6 +20,7 @@ namespace DBModel
         public string Password { get; set; }
 
         [StringLength(200)]
+        [EmailAddress]
         public string Email { get; set; }
 
         public int RoleId { get; set; }

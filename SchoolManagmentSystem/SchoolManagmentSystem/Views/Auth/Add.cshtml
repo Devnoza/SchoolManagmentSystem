@@ -1,0 +1,16 @@
+﻿@model DBModel.RegistrationObject
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<h2>Add</h2>
+
+@using (Html.BeginForm("Add", "Auth", FormMethod.Post, new { id = "myform" }))
+{
+    @Html.ValidationSummary(true)
+    @Html.AntiForgeryToken()
+    HtmlHelper.UnobtrusiveJavaScriptEnabled = true;
+    @Html.Partial("Register", Model)
+
+}

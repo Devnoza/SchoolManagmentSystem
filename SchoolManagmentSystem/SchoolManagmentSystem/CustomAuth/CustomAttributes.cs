@@ -3,49 +3,40 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using System.Web.Mvc.Routing;
+using System.Web.Routing;
 using DBModel;
 namespace SchoolManagmentSystem.CustomAuth
 {
     public class CustomAttributes : AuthorizeAttribute
     {
-        private readonly string[] allowedroles;
-        public CustomAttributes(params string[] roles)
+        private readonly string[] allowedPermissions;
+        public CustomAttributes(params string[] permissions)
         {
-            allowedroles = roles;
+            allowedPermissions = permissions;
         }
         
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             bool authorize = false;
-            var userId = Convert.ToInt32(httpContext.Session["UserId"]);
-            if (userId != 0)
+            var userID = Convert.ToInt32(httpContext.Session["userID"]);
+            if (userID != 0)
                 using (Context context = new Context())
                 {
-                    var userRole = (from u in context.Roles
-                                    join r in context.Roles on u.RoleId equals r.Id
-                                    where u.Id == userId
-                                    select new
-                                    {
-                                        r.Name
-                                    }).FirstOrDefault();
-                    foreach (var role in allowedroles)
+                    var userPermissions = context.Users.Where(x => x.Id == userID).FirstOrDefault().Role.Permissions.ToList();
+                    foreach (var permission in userPermissions)
                     {
-                        if (role == userRole.Name) return true;
+                        if (allowedPermissions.Contains(permission.Name)) return true;
                     }
                 }
-
-
             return authorize;
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             filterContext.Result = new RedirectToRouteResult(
-               new RouteValueDictionary
-               {
+               new RouteValueDictionary{
                     { "controller", "Account" },
-                    { "action", "UnAuthorized" }
+                    { "action", "Login" }
                });
         }
     }
