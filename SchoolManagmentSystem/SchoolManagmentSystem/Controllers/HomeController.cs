@@ -124,7 +124,6 @@ namespace SchoolManagmentSystem.Controllers
         public ActionResult Profile()
         {
 
-
                 int viewid = int.Parse(Session["viewid"].ToString());
                 User viewuser = context.Users.FirstOrDefault(x => x.PersonId == viewid);
                 Person viewperson = context.People.FirstOrDefault(x => x.Id == viewid);
@@ -164,7 +163,7 @@ namespace SchoolManagmentSystem.Controllers
                     }
                 }
                 return View();
-           
+
         }
 
 
