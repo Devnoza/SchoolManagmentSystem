@@ -7,10 +7,10 @@ namespace SchoolManagmentSystem.authorization
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
-        private readonly string[] allowedroles;
-        public CustomAuthorizeAttribute(params string[] roles)
+        private readonly string[] allowedpermissions;
+        public CustomAuthorizeAttribute(params string[] permissions)
         {
-            this.allowedroles = roles;
+            this.allowedpermissions = permissions;
         }
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
@@ -20,15 +20,15 @@ namespace SchoolManagmentSystem.authorization
                 using (var context = new Context())
                 {
                     var userRole = (from u in context.Users_Table
-                                    join r in context.Roles on u.RoleId equals r.Id
+                                    join r in context.Permissions on u.PermissionId equals r.Id
                                     where u.Id == userId
                                     select new
                                     {
                                         r.Name
                                     }).FirstOrDefault();
-                    foreach (var role in allowedroles)
+                    foreach (var role in allowedpermissions)
                     {
-                        if (role == userRole.Name) return true;
+                        if (role == userPermission.Name) return true;
                     }
                 }
 
