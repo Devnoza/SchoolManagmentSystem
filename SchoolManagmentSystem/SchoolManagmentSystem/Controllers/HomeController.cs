@@ -24,27 +24,24 @@ namespace SchoolManagmentSystem.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(User model)
+        public ActionResult Login(User user)
         {
-            using(Context context = new Context())
+            using (Context context = new Context())
             {
-                User authenticatedUser = context.Users.Where(u => u.UserName == model.UserName && u.Password == model.Password).FirstOrDefault();
+                User authenticatedUser = context.Users.Where(u => u.UserName == user.UserName && u.Password == user.Password).FirstOrDefault();
                 if (authenticatedUser != null)
                 {
+                    Session["Username"] = authenticatedUser.UserName;
+                    Session["UserId"] = authenticatedUser.Id;
+
                     return RedirectToAction("UserProfile", "Account");
                 }
                 else
                 {
                     ModelState.AddModelError("", "Invalid Username or Password");
-                    return View(model);
+                    return View(user);
                 }
-            }    
-        }
-
-        public ActionResult Logout()
-        {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Login", "Login", "Home");
+            }
         }
 
         public ActionResult Register()
