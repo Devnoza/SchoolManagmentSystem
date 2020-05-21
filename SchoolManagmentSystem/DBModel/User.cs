@@ -17,6 +17,7 @@ namespace DBModel
 
         [Required]
         [StringLength(200)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [StringLength(200)]

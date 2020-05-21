@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using DBModel;
 
 namespace SchoolManagmentSystem.Controllers
 {
@@ -10,7 +11,8 @@ namespace SchoolManagmentSystem.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            Context Co = new Context();
+            return View(Co.Users.ToList());
         }
 
         public ActionResult About()
@@ -26,5 +28,7 @@ namespace SchoolManagmentSystem.Controllers
 
             return View();
         }
+
+        
     }
 }
