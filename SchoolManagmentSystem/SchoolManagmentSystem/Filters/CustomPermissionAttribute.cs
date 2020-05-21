@@ -28,13 +28,12 @@ namespace SchoolManagmentSystem.Filters
                         User user = context.Users
                             .Where(u => u.Id == userId).FirstOrDefault();
                         Role UserRole = user.Role;
-                        var Permissions = UserRole.Permissions.ToList();
+                        var Permissions = UserRole.Permissions.Select(o=>o.Name).ToList();
 
                         foreach (var permission in allowedPermissions)
                         {
                             Permission a = new Permission();
-                            a.Name = permission;
-                            if (Permissions.Contains(a)) return true;
+                            if (Permissions.Contains(a.Name)) return true;
                         }
                     }
                 }
