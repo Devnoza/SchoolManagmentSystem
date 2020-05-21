@@ -127,6 +127,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Filters\CustomPermissionAttribute.cs" />
+    <Compile Include="Filters\CustomPermissionFilter.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\CustomAuthentificationFilter.cs" />
     <Compile Include="Filters\CustomAuthorizeAttribute.cs" />
@@ -189,6 +191,7 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Shared\_UserLayoutPage.cshtml" />
     <Content Include="Views\Account\UnAuthorizedView.cshtml" />
+    <Content Include="Views\Account\PermissionViolationView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

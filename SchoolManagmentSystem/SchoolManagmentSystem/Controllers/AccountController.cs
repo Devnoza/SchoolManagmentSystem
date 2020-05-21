@@ -35,5 +35,10 @@ namespace SchoolManagmentSystem.Controllers
         {
             return View();
         }
+
+        public ActionResult PermissionViolationView()
+        {
+            return View();
+        }
     }
 }
