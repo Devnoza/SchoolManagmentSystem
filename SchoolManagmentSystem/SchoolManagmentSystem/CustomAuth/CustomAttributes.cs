@@ -18,14 +18,15 @@ namespace SchoolManagmentSystem.CustomAuth
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
             bool authorize = false;
-            var userID = Convert.ToInt32(httpContext.Session["userID"]);
-            if (userID != 0)
+            var userId = Convert.ToInt32(httpContext.Session["UserId"]);
+            if (userId != 0)
                 using (Context context = new Context())
                 {
-                    var userPermissions = context.Users.Where(x => x.Id == userID).FirstOrDefault().Role.Permissions.ToList();
+                    var userPermissions = context.Users.Where(o => o.Id == userId).FirstOrDefault().Role.Permissions.Select(o => o.Name).ToList();
+
                     foreach (var permission in userPermissions)
                     {
-                        if (allowedPermissions.Contains(permission.Name)) return true;
+                        if (allowedPermisins.Contains(permission)) return true;
                     }
                 }
             return authorize;
@@ -34,7 +35,8 @@ namespace SchoolManagmentSystem.CustomAuth
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
         {
             filterContext.Result = new RedirectToRouteResult(
-               new RouteValueDictionary{
+               new RouteValueDictionary
+               {
                     { "controller", "Account" },
                     { "action", "Login" }
                });
