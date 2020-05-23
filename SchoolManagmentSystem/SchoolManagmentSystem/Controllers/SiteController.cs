@@ -8,12 +8,6 @@ namespace SchoolManagmentSystem.Controllers
 {
     public class SiteController : Controller
     {
-        [ValidateAntiForgeryToken]
-        [CustomAuthentication()]
-        public ActionResult Contents()
-        {
-            return View();
-        }
         public ActionResult Home()
         {
             return View();

@@ -128,6 +128,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\SiteController.cs" />
+    <Compile Include="Controllers\TeacherController.cs" />
     <Compile Include="CustomAuth\CustomAttributes.cs" />
     <Compile Include="CustomAuth\CustomAuthentication.cs" />
     <Compile Include="Global.asax.cs">
@@ -174,6 +175,7 @@
     <Content Include="Views\Auth\Edit.cshtml" />
     <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Views\Auth\Unauthorized.cshtml" />
+    <Content Include="Views\Teacher\Courses.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
