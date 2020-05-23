@@ -16,7 +16,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -31,6 +30,7 @@
                             <li>@Html.ActionLink("Login", "Login", "Auth")</li>
                         }
                     }
+                    <li>@Html.ActionLink("Register", "Register", "Auth")</li>
                 </ul>
             </div>
         </div>

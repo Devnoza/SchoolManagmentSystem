@@ -27,7 +27,7 @@ namespace SchoolManagmentSystem.Controllers
                 Context context = new Context();
                 User login = context.Users.Where(x => (x.UserName == user.UserName) && (x.Password == user.Password)).FirstOrDefault();
                 Session.Add("Username", login.UserName);
-                Session.Add("userID", login.Password);
+                Session.Add("userID", login.Id);
                 Session.Add("RoleId", login.RoleId);
                 return RedirectToAction("Home", "Site");
             }

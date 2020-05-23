@@ -75,7 +75,5 @@ namespace DBModel
                 .Property(e => e.Email)
                 .IsUnicode(false);
         }
-
-        public System.Data.Entity.DbSet<DBModel.RegistrationObject> RegistrationObjects { get; set; }
     }
 }
