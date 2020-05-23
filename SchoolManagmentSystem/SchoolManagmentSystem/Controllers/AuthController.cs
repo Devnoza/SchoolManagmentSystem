@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using DBModel;
 using SchoolManagmentSystem.CustomAuth;
+using SchoolManagmentSystem.Helper;
 
 namespace SchoolManagmentSystem.Controllers
 {

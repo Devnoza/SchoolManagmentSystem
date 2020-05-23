@@ -1,12 +1,12 @@
-﻿using System;
+﻿using DBModel;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
-using System.Collections;
+using System.Linq;
+using System.Web;
 using System.Web.Mvc;
-namespace DBModel
+
+namespace SchoolManagmentSystem.Helper
 {
     public class RegistrationObject
     {
@@ -19,7 +19,7 @@ namespace DBModel
             {
                 foreach (var i in context.Roles)
                 {
-                    RoleList.Add(new SelectListItem { Text = i.Name, Value = i.Id.ToString()});
+                    RoleList.Add(new SelectListItem { Text = i.Name, Value = i.Id.ToString() });
                 }
             }
         }
@@ -55,4 +55,5 @@ namespace DBModel
 
         public virtual Role Role { get; set; }
     }
+
 }
