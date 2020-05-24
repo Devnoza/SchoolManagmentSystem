@@ -1,5 +1,5 @@
 ﻿@model SchoolManagmentSystem.RegistrationView
-    
+
 @{
     ViewBag.Title = "რეგისტრაცია";
 }
@@ -15,20 +15,20 @@
         @Html.ValidationMessageFor(x => x.LastName, "", new { @class = "text-danger" })
         <br />
 
-        <p>სქესი :</p>
+        <span>სქესი</span><br />
         @Html.DropDownListFor(modelItem => modelItem.Gender, new[] { new SelectListItem { Text = "მამრობითი", Value = "false" }, new SelectListItem { Text = "მდედრობითი", Value = "true" } }, new { @class = "form-control" })
 
         <br />
-        <p>მომხმარებელი : </p>
+        <span>მომხმარებელი</span><br />
         @Html.TextBoxFor(x => x.Username)<br />
         @Html.ValidationMessageFor(x => x.Username, "", new { @class = "text-danger" })<br />
-        <p>იმეილი : </p>
+        <span>იმეილი</span><br />
         @Html.TextBoxFor(x => x.Email)<br />
         @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })<br />
-        <p>პაროლი : </p>
+        <span>პაროლი</span><br />
         @Html.TextBoxFor(x => x.Password, new { @type = "password" })<br />
         @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })<br />
-        <p>წოდება : </p>
+        <span>წოდება</span><br />
         @Html.DropDownListFor(modelItem => modelItem.Role, new[] { new SelectListItem { Text = "მოსწავლე", Value = "1" }, new SelectListItem { Text = "მასწავლებელი", Value = "2" }, new SelectListItem { Text = "ადმინი", Value = "3" } }, new { @class = "form-control" })
         <br />
 
@@ -39,8 +39,8 @@
 
 <script src="~/Scripts/jquery-3.4.1.slim.js"></script>
 <script src="~/Scripts/jquery.validate.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 <style>
     p.wrong {
         color: #bc4442;
@@ -88,7 +88,7 @@
     }
 
     input.btn.btn-default {
-        width: 256px;
+        width: 291px;
         height: 35px;
         margin-top: 20px;
     }

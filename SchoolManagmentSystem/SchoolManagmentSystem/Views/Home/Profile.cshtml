@@ -3,59 +3,114 @@
 @{
     ViewBag.Title = "პროფაილი";
 }
+<h2>@ViewBag.Title</h2>
+<hr />
+<h4>
+    <spam>სახელი : </spam>
+    <label>@Model.FirstName</label>
+    <br />
+    <spam>გვარი : </spam>
+    <label>@Model.LastName</label>
+    <br />
+    <span>სქესი : </span>
+    <label>@Model.GenderStr</label>
+    <br />
+    <span>მომხმარებელი : </span>
+    <label>@Model.Username</label>
+    <br />
+    <span>იმეილი : </span>
+    <label>@Model.Email</label>
+    <br />
+    <span>წოდება : </span>
+    <label>@Model.Rank</label>
+    <br />
+    <input type="button" value="რედაქტირება" class="btn btn-default" onclick='window.location = "@Url.Action("EditProfile", "Home")"' />
+    <br />
+    <input type="button" value="ანგარიშიდან გამოსვლა" class="btn btn-default" new { style="color:red" } onclick='window.location = "@Url.Action("LogOutProfile", "Home")"' />
+</h4>
 
-@using (Html.BeginForm())
-{
-    <h2>@ViewBag.Title</h2>
-    <hr />
-    <div class="profile">
-        <h4>
-            <div class="form">
-                <p class="prof">სახელი : </p>
-                <span>@ViewBag.Firstname</span>
-            </div>
-            <div class="form">
-                <p class="prof">გვარი :</p>
-                <span> @ViewBag.Lastname</span>
-            </div>
-            <div class="form">
-                <p class="prof">სქესი :</p>
-                <span> @ViewBag.Gender</span>
-            </div>
-            <div class="form">
-                <p class="prof">მომხმარებელი : </p>
-                <span> @ViewBag.Username</span>
-            </div>
-            <div class="form">
-                <p class="prof">იმეილი :  </p>
-                <span> @ViewBag.Email</span>
-            </div>
-            <div class="form">
-                <p class="prof">წოდება :</p>
-                <span>  @ViewBag.Role</span>
-            </div>
-        </h4>
-    </div>
-    <input type="button" value="რედაქტირება" onclick='window.location = "@Url.Action("EditProfile", "Home")"' />
-}
+
 <style>
-    .profile {
+    p.wrong {
+        color: #bc4442;
+        margin: 5px 0px 0px 0px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    p {
+        margin-left: 15px;
+    }
+
+
+    select#Gender, select#Role {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        margin-top: 22px;
+    }
+
+    input {
+        margin-top: 22px;
+        border: 2px solid;
+        height: 35px;
+        border-radius: 25px;
+        padding-left: 15px;
+    }
+
+    spam {
+        display: inline-block;
+        margin-left: 15px;
+    }
+
+    form {
         width: 100%;
         display: flex;
         justify-content: center;
     }
 
-    h4 {
-        width: 400px;
-    }
-
-    .form {
-        display: flex;
-    }
-
-    p.prof {
-        font-weight: bold;
-        font-size: 20px;
+    input.btn.btn-default {
+        border: 2px solid black;
+        border-radius: 25px;
         color: black;
+        font-weight: bold;
+    }
+
+    input.btn.btn-default {
+        width: 291px;
+        height: 35px;
+        margin-top: 20px;
+    }
+
+    spam.surname {
+        margin-top: 5px;
+    }
+
+    input#Gender {
+        position: relative;
+        top: 4px;
+        left: 12px;
+        height: 15px;
+    }
+
+    spam.teacher {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    span.text-danger.field-validation-error {
+        margin-left: 15px;
+        font-size: 13px;
+    }
+
+
+    input#LastName {
+        margin-bottom: 0;
+    }
+
+    h4 {
+        color: black;
+        font-weight: bold;
+        text-align: center;
     }
 </style>

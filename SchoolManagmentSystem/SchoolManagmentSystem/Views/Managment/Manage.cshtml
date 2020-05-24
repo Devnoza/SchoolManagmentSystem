@@ -1,0 +1,15 @@
+﻿@model List<bool>
+@{
+    ViewBag.Title = "მართვა";
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+@using (Html.BeginForm())
+{
+<h5>ანგარიშის რედაქტირება</h5>
+<hr />
+<p>მოსწავლე @Html.DropDownListFor(modelItem => modelItem[0], new[] { new SelectListItem {  Text = "ნებადართული", Value = "true" }, new SelectListItem { Text = "აკრძალული", Value = "false" } }, new { @class = "form-control" })</p>
+<p>მასწავლებელი @Html.DropDownListFor(modelItem => modelItem[1], new[] { new SelectListItem { Text = "ნებადართული", Value = "true" }, new SelectListItem { Text = "აკრძალული", Value = "false" } }, new { @class = "form-control" })</p>
+<hr />
+<input type="submit" value="შეცვლა" />
+}

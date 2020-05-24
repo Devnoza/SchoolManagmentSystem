@@ -140,7 +140,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ManagmentController.cs" />
     <Compile Include="Filters\CustomAuthenticationFilter.cs" />
     <Compile Include="Filters\CustomAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -2633,13 +2635,15 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
-    <Content Include="Views\Home\Registration.cshtml" />
+    <Content Include="Views\Account\Registration.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\Authentication.cshtml" />
+    <Content Include="Views\Account\Authentication.cshtml" />
     <Content Include="Views\Home\Profile.cshtml" />
-    <Content Include="Views\Home\UnAuthorized.cshtml" />
+    <Content Include="Views\Account\UnAuthorized.cshtml" />
     <Content Include="Views\Home\EditProfile.cshtml" />
+    <Content Include="Views\Account\UnPermissioned.cshtml" />
+    <Content Include="Views\Managment\Manage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

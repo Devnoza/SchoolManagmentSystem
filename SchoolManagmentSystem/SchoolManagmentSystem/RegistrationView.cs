@@ -27,6 +27,9 @@ namespace SchoolManagmentSystem
         
         [Required(ErrorMessage = "შეავსეთ წოდება")]
         public int Role { get; set; }
+        public string Rank { get; set; }
+
+        public string GenderStr { get; set; }
 
     }
 }

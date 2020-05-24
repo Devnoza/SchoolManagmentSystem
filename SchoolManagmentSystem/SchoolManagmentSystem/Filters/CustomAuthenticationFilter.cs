@@ -24,7 +24,7 @@ namespace SchoolManagmentSystem.Filters
                 filterContext.Result = new RedirectToRouteResult(
                 new RouteValueDictionary
                 {
-                     { "controller", "Home" },
+                     { "controller", "Account" },
                      { "action", "UnAuthorized" }
                 });
             }

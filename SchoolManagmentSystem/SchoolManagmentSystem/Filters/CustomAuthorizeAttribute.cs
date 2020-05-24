@@ -1,42 +1,42 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Routing;
+using System.Web;
 using DBModel;
+using System.Web.Routing;
 
 namespace SchoolManagmentSystem.Filters
 {
     public class CustomAuthorizeAttribute : AuthorizeAttribute
     {
-        private readonly string[] allowedroles;
+        private readonly string[] allowedpermissions;
         public CustomAuthorizeAttribute(params string[] roles)
         {
-            this.allowedroles = roles;
+            this.allowedpermissions = roles;
         }
         protected override bool AuthorizeCore(HttpContextBase httpContext)
         {
-            bool authorize = false;
             var userId = Convert.ToInt32(httpContext.Session["UserId"]);
             if (userId != 0)
+            {
                 using (var context = new Context())
                 {
-                    var userRole = (from u in context.Users
-                                    join r in context.Roles on u.RoleId equals r.Id
-                                    where u.Id == userId
-                                    select new
-                                    {
-                                        r.Name
-                                    }).FirstOrDefault();
-                    foreach (var role in allowedroles)
+
+                    User user = context.Users
+                        .Where(u => u.Id == userId).FirstOrDefault();
+                    Role UserRole = user.Role;
+                    List<string> userpermissions = UserRole.Permissions.Select(o => o.Name).ToList();
+                    foreach (var permission in allowedpermissions)
                     {
-                        if (role == userRole.Name) return true;
+                        if (userpermissions.Contains(permission))
+                        {
+                            return true;
+                        }
                     }
                 }
-
-
-            return authorize;
+            }
+            return false;
         }
 
         protected override void HandleUnauthorizedRequest(AuthorizationContext filterContext)
@@ -45,8 +45,9 @@ namespace SchoolManagmentSystem.Filters
                new RouteValueDictionary
                {
                     { "controller", "Account" },
-                    { "action", "UnAuthorized" }
+                    { "action", "UnPermissioned" }
                });
         }
+
     }
 }
