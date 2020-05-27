@@ -1,4 +1,4 @@
-namespace DBModel
+﻿namespace DBModel
 {
     using System;
     using System.Collections.Generic;
@@ -17,7 +17,7 @@ namespace DBModel
 
         public int Id { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "შეავსეთ კურსი")]
         [StringLength(100)]
         public string Name { get; set; }
 

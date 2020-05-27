@@ -83,20 +83,35 @@ namespace SchoolManagmentSystem.Controllers
                     context.Users.Add(userdsm);
                     context.SaveChanges();
                     User userdsm1 = context.Users.FirstOrDefault(x => x.UserName == userdsm.UserName);
-                    int introle = userdsm1.RoleId;
-                    if (introle == 1)
+                    Role addrole = context.Roles.FirstOrDefault(x => x.Id == userdsm1.RoleId);
+                    if (addrole.Name == "Student")
                     {
-                        Student studentdsm = new Student() { PersonId = intIdt, TypeId = 1 };
+                        StudentType type = context.StudentTypes.FirstOrDefault(x => x.Name == "Student");
+                        Student studentdsm = new Student() { PersonId = intIdt, TypeId = type.Id };
                         context.Students.Add(studentdsm);
+                        Permission upleba = context.Permissions.FirstOrDefault(x => x.Name == "ViewProfile");
+                        userdsm1.Role.Permissions.Add(upleba);
                         context.SaveChanges();
                     }
-                    else if (introle == 2)
+                    else if (addrole.Name == "Teacher")
                     {
-                        Teacher teacherdsm = new Teacher() { PersonId = intIdt, TypeId = 1 };
+                        TeacherType type = context.TeacherTypes.FirstOrDefault(x => x.Name == "Teacher");
+                        Teacher teacherdsm = new Teacher() { PersonId = intIdt, TypeId = type.Id };
                         context.Teachers.Add(teacherdsm);
+                        Permission upleba = context.Permissions.FirstOrDefault(x => x.Name == "ViewProfile");
+                        Permission upleba1 = context.Permissions.FirstOrDefault(x => x.Name == "AddSubjectOrStudent");
+                        userdsm1.Role.Permissions.Add(upleba);
+                        userdsm1.Role.Permissions.Add(upleba1);
                         context.SaveChanges();
                     }
-
+                    else if (addrole.Name == "Admin")
+                    {
+                        Permission upleba = context.Permissions.FirstOrDefault(x => x.Name == "ViewProfile");
+                        Permission upleba1 = context.Permissions.FirstOrDefault(x => x.Name == "AddSubjectOrStudent");
+                        userdsm1.Role.Permissions.Add(upleba);
+                        userdsm1.Role.Permissions.Add(upleba1);
+                        context.SaveChanges();
+                    }
                     return RedirectToAction("Authentication", "Account");
                 }
                 else

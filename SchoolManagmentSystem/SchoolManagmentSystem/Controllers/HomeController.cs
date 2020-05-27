@@ -38,23 +38,23 @@ namespace SchoolManagmentSystem.Controllers
                 Student student = context.Students.FirstOrDefault(x => x.PersonId == viewid);
                 if (teacher != null)
                 {
-                    if (teacher.TypeId == 1)
+                    TeacherType wodeba = context.TeacherTypes.FirstOrDefault(x => x.Name == "Teacher");
+                    TeacherType wodeba1 = context.TeacherTypes.FirstOrDefault(x => x.Name == "Senior Teacher");
+                    if (teacher.TypeId == wodeba.Id)
                     {
-                        TeacherType view = context.TeacherTypes.FirstOrDefault(x => x.Id == 1);
-                        ProfileView.Rank = view.Name;
+                        ProfileView.Rank = wodeba.Name;
                     }
                     else
                     {
-                        TeacherType view = context.TeacherTypes.FirstOrDefault(x => x.Id == 2);
-                        ProfileView.Rank = view.Name;
+                        ProfileView.Rank = wodeba1.Name;
                     }
                 }
                 else if (student != null)
                 {
-                    if (student.TypeId == 1)
+                    StudentType wodeba = context.StudentTypes.FirstOrDefault(x => x.Name == "Student"); 
+                    if (student.TypeId == wodeba.Id)
                     {
-                        StudentType view = context.StudentTypes.FirstOrDefault(x => x.Id == 1);
-                        ProfileView.Rank = view.Name;
+                        ProfileView.Rank = wodeba.Name;
                     }
                 }
                 else

@@ -1,0 +1,96 @@
+﻿@{
+    ViewBag.Title = "დამატება";
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+<h4>
+    <input type="submit" placeholder="" value="საგნის დამატება" class="btn btn-default" new { style="color:green" } onclick='window.location = "@Url.Action("AddSubject", "Add")"' />
+    <br />
+    <input type="submit" placeholder="" value="სტუდენტის დამატება ჯგუფში" class="btn btn-default" new { style="color:green" } onclick='window.location = "@Url.Action("AddStudent", "Add")"' />
+    <br />
+    <input type="submit" placeholder="" value="კურსის დამატება" class="btn btn-default" new { style="color:green" } onclick='window.location = "@Url.Action("AddCourse", "Add")"' />
+</h4>
+<style>
+    p.wrong {
+        color: green;
+        margin: 5px 0px 0px 0px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    p {
+        margin-left: 15px;
+    }
+
+
+    select#Gender, select#Role {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        margin-top: 22px;
+    }
+
+    input {
+        margin-top: 22px;
+        border: 2px solid;
+        height: 35px;
+        border-radius: 25px;
+        padding-left: 15px;
+    }
+
+    spam {
+        display: inline-block;
+        margin-left: 15px;
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    input.btn.btn-default {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        font-weight: bold;
+    }
+
+    input.btn.btn-default {
+        width: 305px;
+        height: 35px;
+        margin-top: 20px;
+    }
+
+    spam.surname {
+        margin-top: 5px;
+    }
+
+    input#Gender {
+        position: relative;
+        top: 4px;
+        left: 12px;
+        height: 15px;
+    }
+
+    spam.teacher {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    span.text-danger.field-validation-error {
+        margin-left: 15px;
+        font-size: 13px;
+    }
+
+
+    input#LastName {
+        margin-bottom: 0;
+    }
+
+    h4 {
+        color: black;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>

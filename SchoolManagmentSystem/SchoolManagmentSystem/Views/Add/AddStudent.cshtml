@@ -1,0 +1,18 @@
+﻿@model SchoolManagmentSystem.AddStudentModel
+@{
+    ViewBag.Title = "სტუდენტის დამატება კურსში";
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+@using (Html.BeginForm())
+{
+    <spam>სტუდენტის მომხ. სახელი :</spam> <br />@Html.TextBoxFor(x => x.Name) <br />
+    @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+    <br />
+    <spam class="surname">კურსი :</spam> <br />@Html.TextBoxFor(x => x.Course) <br />
+    @Html.ValidationMessageFor(x => x.Course, "", new { @class = "text-danger" })
+    <br />
+    <input type="submit" placeholder="" value="შევსება" new { style="color:green" } />
+    <p class="wrong">@ViewBag.Message</p>
+}
+

@@ -1,0 +1,16 @@
+﻿@model DBModel.Course
+@{
+    ViewBag.Title = "დამატება";
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+
+@using (Html.BeginForm())
+{
+    <spam>კურსის სახელი :</spam> <br />@Html.TextBoxFor(x => x.Name) <br />
+    @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+    <br />
+    <input type="submit" placeholder="" value="შევსება" new { style="color:green" } />
+    <p class="wrong">@ViewBag.Message</p>
+}
+

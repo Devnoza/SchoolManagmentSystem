@@ -75,9 +75,33 @@ namespace SchoolManagmentSystem.Controllers
                     role.Permissions.Remove(permission);
                 }
             }
-
             context.SaveChanges();
             return View();
         }
+
+        [HttpPost]
+        public ActionResult AddSubjectOrStudent(List<bool> Change)
+        {
+            Role teacherId = context.Roles.FirstOrDefault(x => x.Name == "Teacher");
+            Permission viewprofile = context.Permissions.FirstOrDefault(x => x.Name == "AddSubjectOrStudent");
+            if (Change[0] == true)
+            {
+                Role student = context.Roles.FirstOrDefault(x => x.Id == teacherId.Id);
+                var permission = context.Permissions.Where(x => x.Id == viewprofile.Id).FirstOrDefault();
+                student.Permissions.Add(permission);
+            }
+            else
+            {
+                Role role = context.Roles.Where(x => x.Id == teacherId.Id).FirstOrDefault();
+                var permission = role.Permissions.Where(x => x.Id == viewprofile.Id).FirstOrDefault();
+                if (permission != null)
+                {
+                    role.Permissions.Remove(permission);
+                }
+            }
+            context.SaveChanges();
+            return RedirectToAction("Manage", "Managment");
+        }
+
     }
 }

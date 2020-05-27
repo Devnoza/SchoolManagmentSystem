@@ -1,96 +1,105 @@
-﻿            
-            <!doctype html>
-            <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
-            <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
-            <!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
-            <!--[if gt IE 8]><!-->
-            <html class="no-js" lang="en">
-            <!--<![endif]-->
+﻿@using DBModel;
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="no-js" lang="en">
+<!--<![endif]-->
 
-            <head>
-                <meta charset="utf-8">
-                <meta http-equiv="X-UA-Compatible" content="IE=edge">
-                <title>SchoolManagmentSystem</title>
-                <meta name="description" content="Sufee Admin - HTML5 Admin Template">
-                <meta name="viewport" content="width=device-width, initial-scale=1">
-                <link rel="apple-touch-icon" href="~/Content/apple-icon.png">
-                <link rel="shortcut icon" href="favicon.ico">
-                <link rel="stylesheet" href="~/Content/vendors/bootstrap/dist/css/bootstrap.min.css">
-                <link rel="stylesheet" href="~/Content/vendors/font-awesome/css/font-awesome.min.css">
-                <link rel="stylesheet" href="~/Content/vendors/themify-icons/css/themify-icons.css">
-                <link rel="stylesheet" href="~/Content/vendors/flag-icon-css/css/flag-icon.min.css">
-                <link rel="stylesheet" href="~/Content/vendors/selectFX/css/cs-skin-elastic.css">
-                <link rel="stylesheet" href="~/Content/vendors/jqvmap/dist/jqvmap.min.css">
-                <link rel="stylesheet" href="~/Content/assets/css/style.css">
-                <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-            </head>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>SchoolManagmentSystem</title>
+    <meta name="description" content="Sufee Admin - HTML5 Admin Template">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="~/Content/apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="~/Content/vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/Content/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="~/Content/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="~/Content/vendors/selectFX/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="~/Content/vendors/jqvmap/dist/jqvmap.min.css">
+    <link rel="stylesheet" href="~/Content/assets/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+</head>
 
-            <body>
+<body>
 
 
-                <!-- Left Panel -->
+    <!-- Left Panel -->
 
-                <aside id="left-panel" class="left-panel">
-                    <nav class="navbar navbar-expand-sm navbar-default">
+    <aside id="left-panel" class="left-panel">
+        <nav class="navbar navbar-expand-sm navbar-default">
 
-                        <div class="navbar-header">
-                            <button class="navbar-toggler" type="button">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            @{
-                                if (Session["UserName"] != null)
-                                {
-                                    <a class="navbar-brand" onclick='window.location = "@Url.Action("Index", "Home")"'>SchoolManagmentSystem</a>
-                                }
-                                else
-                                {
-                                    <a class="navbar-brand">SchoolManagmentSystem</a>
-                                }
+            <div class="navbar-header">
+                <button class="navbar-toggler" type="button">
+                    <i class="fa fa-bars"></i>
+                </button>
+                @{
+                    if (Session["UserName"] != null)
+                    {
+                        <a class="navbar-brand" onclick='window.location = "@Url.Action("Index", "Home")"'>SchoolManagmentSystem</a>
+                    }
+                    else
+                    {
+                        <a class="navbar-brand">SchoolManagmentSystem</a>
+                    }
+                }
+            </div>
+
+            <div id="main-menu" class="main-menu collapse navbar-collapse">
+                <ul class="navbar-header">
+                    @{
+                        if (Session["UserName"] == null)
+
+                        {
+                            <li>@Html.ActionLink("ავტორიზაცია", "Authentication", "Account")</li>
+                            <li>@Html.ActionLink("რეგისტრაცია", "Registration", "Account")</li>
+                        }
+                        if (Session["UserName"] != null)
+                        {
+
+                            <li>@Html.ActionLink("პროფაილი", "Profile", "Home")</li>
+                        }
+                        if (Session["UserRoleId"] != null)
+                        {
+
+                            if (int.Parse(Session["UserRoleId"].ToString()) == 3)
+                            {
+                                <li>@Html.ActionLink("მართვა", "Manage", "Managment")</li>
                             }
-                        </div>
 
-                        <div id="main-menu" class="main-menu collapse navbar-collapse">
-                            <ul class="navbar-header">
-                                @{
-                                    if (Session["UserName"] == null)
+                            Context context = new Context();
+                            int roleId = int.Parse(Session["UserRoleId"].ToString());
+                            Role role = context.Roles.FirstOrDefault(x => x.Id == roleId);
+                            Permission per = context.Permissions.FirstOrDefault(x => x.Name == "AddSubjectOrStudent");
+                            if (role.Permissions.Contains(per))
+                            {
+                            <li>@Html.ActionLink("დამატება", "Index", "Add")</li>
+                            }
+                        }
 
-                                    {
-                                    <li>@Html.ActionLink("ავტორიზაცია", "Authentication", "Account")</li>
-                                    <li>@Html.ActionLink("რეგისტრაცია", "Registration", "Account")</li>
-                                    }
-                                    if (Session["UserName"] != null)
-                                    {
-
-                                        <li>@Html.ActionLink("პროფაილი", "Profile", "Home")</li>
-                                    }
-                                    if (Session["UserRoleId"] != null)
-                                    {
-
-                                        if (int.Parse(Session["UserRoleId"].ToString()) == 3)
-                                        {
-                                            <li>@Html.ActionLink("მართვა", "Manage", "Managment")</li>
-                                        }
-                                    }
-                                }
-                            </ul>
-                        </div>
-                    </nav>
-                </aside>
+                     }
+                </ul>
+            </div>
+        </nav>
+    </aside>
 
 
-                <div class="container body-content">
-                    @RenderBody()
-                    <hr />
-                    <footer>
-                        <p>&copy; @DateTime.Now.Year - ASP.NET Application By Giorgi Bakhturidze</p>
-                    </footer>
-                </div>
-            </body>
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - ASP.NET Application By Giorgi Bakhturidze</p>
+        </footer>
+    </div>
+</body>
 
-        </html>
-        <style>
-            .navbar-brand {
-                cursor: pointer;
-            }
-
-        </style>
+</html>
+<style>
+    .navbar-brand {
+        cursor: pointer;
+    }
+</style>
