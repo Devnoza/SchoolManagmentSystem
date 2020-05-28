@@ -1,4 +1,7 @@
 ﻿
+@using CsScripts;
+@model RegistrationModel
+
 @{
     ViewBag.Title = "RegistrationPage";
 }
@@ -26,22 +29,55 @@
 
 <script src="~/Scripts/functions.js"></script>
 
-<body>
-    <h2>Register</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <body>
+        <h2>Register</h2>
 
-    <p>
-        <text>Username</text>
-        <input class="textbox" type="text" />
-    </p>
+        <p>
+            <text>Username</text>
+            @Html.TextBoxFor(model => model.user.UserName, new { @class = "textbox", @value = "" })
+            @Html.ValidationMessageFor(model => model.user.UserName, "", new { @class = "text-danger" })
 
-    <form name="passwordDiv">
+        </p>
+
         <p>
             <text>Password</text>
-            <input name="passwordBox" class="textbox" type="password" style="margin-left: 3px;" />
-            <input name="passwordCheckBox" type="checkbox" style="margin-left: 20px;" onclick="showPassword()"> Show Password
+            @Html.TextBoxFor(model => model.user.Password, new { @id = "passwordBox", @class = "textbox", @type = "password", @style = "margin-left: 3px;", @value = "" })
+            @Html.ValidationMessageFor(model => model.user.Password, "", new { @class = "text-danger" })
+            <input id="passwordCheckBox" type="checkbox" style="margin-left: 20px;" onclick="showPassword()"> Show Password
         </p>
-    </form>
 
-    <p><input class="button" type="button" value="Login" /></p>
+        <p>
+            <text>Firstname</text>
+            @Html.TextBoxFor(model => model.person.FirstName, new { @class = "textbox", @value = "" })
+            @Html.ValidationMessageFor(model => model.person.FirstName, "", new { @class = "text-danger" })
 
-</body>
+        </p>
+
+        <p>
+            <text>Lastname</text>
+            @Html.TextBoxFor(model => model.person.LastName, new { @class = "textbox", @value = "" })
+            @Html.ValidationMessageFor(model => model.person.LastName, "", new { @class = "text-danger" })
+
+        </p>
+
+        <p>
+            <text>BirthDate</text>
+            @Html.TextBoxFor(model => model.person.BirthDate, new { @class = "textbox", @value = "" })
+            @Html.ValidationMessageFor(model => model.person.BirthDate, "", new { @class = "text-danger" })
+
+        </p>
+
+        <p>
+            <text>Gender</text>
+            @Html.DropDownListFor(model => model.person.Gender, new SelectList(Model.person.genders, "Key", "Value", Model.person.Gender))
+            @Html.ValidationMessageFor(model => model.person.Gender, "", new { @class = "text-danger" })
+
+        </p>
+
+        <p><input class="button" type="submit" value="Register" /></p>
+
+    </body>
+}

@@ -10,6 +10,7 @@ using System.Web.Security;
 namespace SchoolManagmentSystem.Controllers
 {
     [CustomAuthenticationFilter]
+    [CustomPermissionFilter]
     public class AccountController : Controller
     {
         public ActionResult Index()
@@ -31,6 +32,7 @@ namespace SchoolManagmentSystem.Controllers
             return View();
         }
 
+        [CustomPermission("EditUser")]
         public ActionResult UnAuthorizedView()
         {
             return View();

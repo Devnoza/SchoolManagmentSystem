@@ -39,5 +39,13 @@ namespace DBModel
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> Users { get; set; }
+
+        //Custom
+        public Dictionary<int, string> genders = new Dictionary<int, string>(2)
+        {
+            { 0, "Female" },
+            { 1, "Male" }
+        };
+        
     }
 }
