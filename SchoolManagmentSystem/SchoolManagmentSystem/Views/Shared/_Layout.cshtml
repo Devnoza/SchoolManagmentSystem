@@ -52,6 +52,7 @@
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="navbar-header">
                     @{
+                        Context context = new Context();
                         if (Session["UserName"] == null)
 
                         {
@@ -65,23 +66,19 @@
                         }
                         if (Session["UserRoleId"] != null)
                         {
-
-                            if (int.Parse(Session["UserRoleId"].ToString()) == 3)
-                            {
-                                <li>@Html.ActionLink("მართვა", "Manage", "Managment")</li>
-                            }
-
-                            Context context = new Context();
-                            int roleId = int.Parse(Session["UserRoleId"].ToString());
-                            Role role = context.Roles.FirstOrDefault(x => x.Id == roleId);
+                            int roli = int.Parse(Session["UserRoleId"].ToString());
+                            Role role = context.Roles.FirstOrDefault(x => x.Id == roli);
                             Permission per = context.Permissions.FirstOrDefault(x => x.Name == "AddSubjectOrStudent");
                             if (role.Permissions.Contains(per))
                             {
-                            <li>@Html.ActionLink("დამატება", "Index", "Add")</li>
+                                <li>@Html.ActionLink("მართვა", "Manage", "Managment")</li>
+                                <li>@Html.ActionLink("კურსები", "Courses", "Course")</li>
+                                <li>@Html.ActionLink("დამატება", "Index", "Add")</li>
                             }
+
                         }
 
-                     }
+                    }
                 </ul>
             </div>
         </nav>

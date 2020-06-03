@@ -1,0 +1,62 @@
+﻿@model List<CourseSubjectModel>
+@{
+    ViewBag.Title = "კურსის საგნები";
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+<table class="table">
+    @{
+        if (Model != null)
+        {
+            <tr>
+                <th style="border: 0">
+                    საგანი
+                </th>
+                <th style="border: 0">
+                    მასწავლებელი
+                </th>
+            </tr>
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @item.Teacher
+                    </td>
+                    <td>
+                        @Html.ActionLink("წაშლა", "RemoveCourseSubject", new { subjectname = item.Name })
+                    </td>
+                </tr>
+            }
+        }
+
+    }
+</table>
+<p class="wrong">@ViewBag.Message</p>
+</br>
+<h4>
+    <input type="submit" value="საგნის დამატება" class="btn btn-default" new { style="color:green" } onclick="window.location = '@Url.Action("AddSubject", "Add")'"/>
+</h4>
+<style>
+    p.wrong {
+        color: #bc4442;
+        margin: 5px 0px 0px 0;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    input.btn.btn-default {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        font-weight: bold;
+    }
+
+    h4 {
+        color: black;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>

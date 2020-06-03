@@ -30,10 +30,12 @@ namespace SchoolManagmentSystem.Controllers
 
                 if (momxmarebeli != null)
                 {
+                    Role role = context.Roles.FirstOrDefault(x => x.Id == momxmarebeli.RoleId);
                     Session["UserId"] = momxmarebeli.Id;
                     Session["UserName"] = momxmarebeli.UserName;
                     Session["UserRoleId"] = momxmarebeli.RoleId;
                     Session["viewid"] = momxmarebeli.PersonId;
+                    Session["ViewRole"] = role.Name;
                     return RedirectToAction("Profile", "Home");
                 }
                 else if (momxmarebeli == null)

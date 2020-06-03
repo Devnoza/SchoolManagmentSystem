@@ -1,0 +1,59 @@
+﻿@model List<DBModel.Course>
+@{
+    ViewBag.Title = "კურსები";
+}
+<h2>@ViewBag.Title</h2>
+<hr />
+<table class="table">
+    @{
+
+        if (Model != null)
+        {
+            <tr>
+                <th style="border: 0">
+                    კურსი
+                </th>
+            </tr>
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.Name
+                    </td>
+                    <td>
+                        @Html.ActionLink("რედაქტირება", "EditCourse", new { courseid = item.Id }) |
+                        @Html.ActionLink("კურსის სტუდენტები", "CourseMembers", new { courseid = item.Id }) |
+                        @Html.ActionLink("კურსის საგნები", "CourseSubjects", new { courseid = item.Id })
+                    </td>
+                </tr>
+            }
+        }
+
+    }
+</table>
+<p class="wrong">@ViewBag.Message</p>
+</br>
+<h4>
+    <input type="button" value="კურსის დამატება" class="btn btn-default" new { style="color:green" } onclick='window.location = "@Url.Action("AddCourse", "Add")"' />
+</h4>
+<style>
+    p.wrong {
+        color: #bc4442;
+        margin: 5px 0px 0px 0;
+        font-size: 13px;
+        text-align: center;
+    }
+    input.btn.btn-default {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        font-weight: bold;
+    }
+    h4 {
+        color: black;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
+
+

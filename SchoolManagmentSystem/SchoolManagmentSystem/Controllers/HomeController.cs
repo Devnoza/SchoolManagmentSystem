@@ -141,6 +141,7 @@ namespace SchoolManagmentSystem.Controllers
             Session["UserName"] = null;
             Session["UserId"] = null;
             Session["UserRoleId"] = null;
+            Session["ViewRole"] = null;
             return RedirectToAction("Authentication", "Account");
         }
 

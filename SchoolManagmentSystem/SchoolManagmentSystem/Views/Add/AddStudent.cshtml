@@ -1,18 +1,99 @@
 ﻿@model SchoolManagmentSystem.AddStudentModel
 @{
-    ViewBag.Title = "სტუდენტის დამატება კურსში";
+    ViewBag.Title = "სტუდენტის დამატება";
 }
 <h2>@ViewBag.Title</h2>
 <hr />
 @using (Html.BeginForm())
 {
-    <spam>სტუდენტის მომხ. სახელი :</spam> <br />@Html.TextBoxFor(x => x.Name) <br />
+<h4>
+    <spam>სტუდენტის მომხმარებელი:</spam> <br />@Html.TextBoxFor(x => x.Name) <br />
     @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
     <br />
     <spam class="surname">კურსი :</spam> <br />@Html.TextBoxFor(x => x.Course) <br />
     @Html.ValidationMessageFor(x => x.Course, "", new { @class = "text-danger" })
     <br />
-    <input type="submit" placeholder="" value="შევსება" new { style="color:green" } />
+    <input type="submit" class="btn btn-default" placeholder="" value="შევსება" new { style="color:green" } />
     <p class="wrong">@ViewBag.Message</p>
+    <p class="wrong1">@ViewBag.Message1</p>
+</h4>
 }
+<style>
+    input {
+        margin-top: 22px;
+        border: 2px solid;
+        height: 35px;
+        border-radius: 25px;
+        padding-left: 15px;
+    }
+
+    spam {
+        display: inline-block;
+        margin-left: 15px;
+    }
+
+    form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+    p.wrong1 {
+        color: green;
+        margin: 5px 0px 0px 0;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    input.btn.btn-default {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        font-weight: bold;
+    }
+
+    p.wrong {
+        color: #bc4442;
+        margin: 5px 0px 0px 0;
+        font-size: 13px;
+        text-align: center;
+    }
+
+    input.btn.btn-default {
+        width: 291px;
+        height: 35px;
+        margin-top: 20px;
+    }
+
+    spam.surname {
+        margin-top: 5px;
+    }
+
+    input#Gender {
+        position: relative;
+        top: 4px;
+        left: 12px;
+        height: 15px;
+    }
+
+    spam.teacher {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    span.text-danger.field-validation-error {
+        margin-left: 15px;
+        font-size: 13px;
+    }
+
+
+    input#LastName {
+        margin-bottom: 0;
+    }
+
+    h4 {
+        color: black;
+        font-weight: bold;
+        width: 290px;
+    }
+</style>
 

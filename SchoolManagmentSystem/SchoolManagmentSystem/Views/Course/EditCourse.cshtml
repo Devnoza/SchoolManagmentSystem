@@ -1,21 +1,36 @@
 ﻿@model DBModel.Course
 @{
-    ViewBag.Title = "კურსის დამატება";
+    ViewBag.Title = "კურსის რედაქტირება";
 }
 <h2>@ViewBag.Title</h2>
 <hr />
-
 @using (Html.BeginForm())
 {
-<h4>
-    <spam>ახალი კურსი :</spam> <br />@Html.TextBoxFor(x => x.Name) <br />
-    @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
-    <br />
-    <input type="submit" placeholder="" class="btn btn-default" value="შევსება" new { style="color:green" } />
-    <p class="wrong">@ViewBag.Message</p>
-    <p class="wrong1">@ViewBag.Message1</p>
-</h4>
+    <h4>
+        <spam>სახელი :</spam> <br />@Html.TextBoxFor(x => x.Name) <br />
+        @Html.ValidationMessageFor(x => x.Name, "", new { @class = "text-danger" })
+        <br />
+        <input type="submit" placeholder="" value="რედაქტირება" class="btn btn-default" new { style="color:green" } />
+    </h4>
 }
+@using (Html.BeginForm("Courses", "Course", FormMethod.Post))
+{
+    <input type="button" value="უკან დაბრუნება" class="btn btn-default" onclick='window.location = "@Url.Action("Courses", "Course")"'/>
+}
+    @{
+        try
+        {
+            using (Html.BeginForm("DeleteCourse", "Course", new { courseid = Model.Id }, FormMethod.Post))
+            {
+                <input type="submit" placeholder="" value="კურსის წაშლა" class="btn btn-default" new { style="color:red" } />
+            }
+        }
+        catch
+        {
+
+        }
+    }
+    <p class="wrong">@ViewBag.Message</p>
     <style>
         input {
             margin-top: 22px;
@@ -29,12 +44,7 @@
             display: inline-block;
             margin-left: 15px;
         }
-        p.wrong1 {
-            color: green;
-            margin: 5px 0px 0px 0;
-            font-size: 13px;
-            text-align: center;
-        }
+
         form {
             width: 100%;
             display: flex;

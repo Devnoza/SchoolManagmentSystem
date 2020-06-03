@@ -1,5 +1,5 @@
 ﻿@model SchoolManagmentSystem.RegistrationView
-
+@using DBModel
 @{
     ViewBag.Title = "რეგისტრაცია";
 }
@@ -7,6 +7,10 @@
 <hr />
 @using (Html.BeginForm())
 {
+    Context context = new Context();
+    Role adminrole = context.Roles.FirstOrDefault(x => x.Name == "Admin");
+    Role teacherrole = context.Roles.FirstOrDefault(x => x.Name == "Teacher");
+    Role studentrole = context.Roles.FirstOrDefault(x => x.Name == "Student");
     <h4>
         <spam>სახელი :</spam> <br />@Html.TextBoxFor(x => x.FirstName) <br />
         @Html.ValidationMessageFor(x => x.FirstName, "", new { @class = "text-danger" })
@@ -29,7 +33,7 @@
         @Html.TextBoxFor(x => x.Password, new { @type = "password" })<br />
         @Html.ValidationMessageFor(x => x.Password, "", new { @class = "text-danger" })<br />
         <span>წოდება</span><br />
-        @Html.DropDownListFor(modelItem => modelItem.Role, new[] { new SelectListItem { Text = "მოსწავლე", Value = "1" }, new SelectListItem { Text = "მასწავლებელი", Value = "2" }, new SelectListItem { Text = "ადმინი", Value = "3" } }, new { @class = "form-control" })
+        @Html.DropDownListFor(modelItem => modelItem.Role, new[] { new SelectListItem { Text = "მოსწავლე", Value = studentrole.Id.ToString() }, new SelectListItem { Text = "მასწავლებელი", Value = teacherrole.Id.ToString() }, new SelectListItem { Text = "ადმინი", Value = adminrole.Id.ToString() } }, new { @class = "form-control" })
         <br />
 
         <input type="submit" placeholder="" value="შევსება" class="btn btn-default" new { style="color:green" } />
