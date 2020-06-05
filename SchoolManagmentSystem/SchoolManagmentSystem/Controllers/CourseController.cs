@@ -11,6 +11,7 @@ using DBModel;
 
 namespace SchoolManagmentSystem.Controllers
 {
+    [CustomAuthenticationFilter]
     public class CourseController : Controller
     {
         Context context = new Context();
@@ -32,6 +33,7 @@ namespace SchoolManagmentSystem.Controllers
         public ActionResult CourseMembers(int courseid)
         {
             Course course = context.Courses.FirstOrDefault(x => x.Id == courseid);
+            Session["Course"] = course.Name;
             Subject coursesubject = course.Subjects.FirstOrDefault();
             try
             {
@@ -129,6 +131,7 @@ namespace SchoolManagmentSystem.Controllers
         public ActionResult CourseSubjects(int courseId)
         {
             Course course = context.Courses.FirstOrDefault(x => x.Id == courseId);
+            Session["Course"] = course.Name;
             if (course.Subjects.Count() != 0)
             {
                 List<CourseSubjectModel> courssubjects = new List<CourseSubjectModel>();

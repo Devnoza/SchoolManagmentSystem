@@ -28,6 +28,8 @@ namespace SchoolManagmentSystem.Controllers
         public ActionResult AddSubject()
         {
             AddSubjectModel model = new AddSubjectModel();
+            if (Session["Course"].ToString() != null)
+                model.Course = Session["Course"].ToString();
             return View(model);
         }
 
@@ -98,6 +100,10 @@ namespace SchoolManagmentSystem.Controllers
         public ActionResult AddStudent()
         {
             AddStudentModel model = new AddStudentModel();
+            if (Session["Course"].ToString() != null)
+            {
+                model.Course = Session["Course"].ToString();
+            }
             return View(model);
         }
 

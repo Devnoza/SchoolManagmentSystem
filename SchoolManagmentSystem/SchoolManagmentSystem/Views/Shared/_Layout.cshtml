@@ -54,7 +54,6 @@
                     @{
                         Context context = new Context();
                         if (Session["UserName"] == null)
-
                         {
                             <li>@Html.ActionLink("ავტორიზაცია", "Authentication", "Account")</li>
                             <li>@Html.ActionLink("რეგისტრაცია", "Registration", "Account")</li>
@@ -69,9 +68,12 @@
                             int roli = int.Parse(Session["UserRoleId"].ToString());
                             Role role = context.Roles.FirstOrDefault(x => x.Id == roli);
                             Permission per = context.Permissions.FirstOrDefault(x => x.Name == "AddSubjectOrStudent");
-                            if (role.Permissions.Contains(per))
+                            if (role.Name == "Admin")
                             {
                                 <li>@Html.ActionLink("მართვა", "Manage", "Managment")</li>
+                            }
+                            if (role.Permissions.Contains(per))
+                            {
                                 <li>@Html.ActionLink("კურსები", "Courses", "Course")</li>
                                 <li>@Html.ActionLink("დამატება", "Index", "Add")</li>
                             }

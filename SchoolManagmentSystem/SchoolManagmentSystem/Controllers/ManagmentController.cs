@@ -25,7 +25,42 @@ namespace SchoolManagmentSystem.Controllers
                 if (int.Parse(Session["UserRoleId"].ToString()) == adminid.Id)
                 {
                     List<bool> Change = new List<bool>();
-
+                    Role student = context.Roles.FirstOrDefault(x => x.Name == "Student");
+                    Role teacher = context.Roles.FirstOrDefault(x => x.Name == "Teacher");
+                    Permission viewprofile = context.Permissions.FirstOrDefault(x => x.Name == "ViewProfile");
+                    Permission AddSubjectOrStudent = context.Permissions.FirstOrDefault(x => x.Name == "AddSubjectOrStudent");
+                    if (student.Permissions.Contains(viewprofile))
+                    {
+                        Change.Add(true);
+                    }
+                    else
+                    {
+                        Change.Add(false);
+                    }
+                    if (teacher.Permissions.Contains(viewprofile))
+                    {
+                        Change.Add(true);
+                    }
+                    else
+                    {
+                        Change.Add(false);
+                    }
+                    if (student.Permissions.Contains(AddSubjectOrStudent))
+                    {
+                        Change.Add(true);
+                    }
+                    else
+                    {
+                        Change.Add(false);
+                    }
+                    if (teacher.Permissions.Contains(AddSubjectOrStudent))
+                    {
+                        Change.Add(true);
+                    }
+                    else
+                    {
+                        Change.Add(false);
+                    }
                     return View(Change);
                 }
                 else
@@ -49,6 +84,8 @@ namespace SchoolManagmentSystem.Controllers
                     Role studentId = context.Roles.FirstOrDefault(x => x.Name == "Student");
                     Role teacherId = context.Roles.FirstOrDefault(x => x.Name == "Teacher");
                     Permission viewprofile = context.Permissions.FirstOrDefault(x => x.Name == "ViewProfile");
+                    Permission viewprofile1 = context.Permissions.FirstOrDefault(x => x.Name == "AddSubjectOrStudent");
+                    //
                     if (Change[0] == true)
                     {
                         Role student = context.Roles.FirstOrDefault(x => x.Id == studentId.Id);
@@ -64,8 +101,7 @@ namespace SchoolManagmentSystem.Controllers
                             role.Permissions.Remove(permission);
                         }
                     }
-                    context.SaveChanges();
-
+                    //
                     if (Change[1] == true)
                     {
                         Role student = context.Roles.FirstOrDefault(x => x.Id == teacherId.Id);
@@ -76,6 +112,38 @@ namespace SchoolManagmentSystem.Controllers
                     {
                         Role role = context.Roles.Where(x => x.Id == teacherId.Id).FirstOrDefault();
                         var permission = role.Permissions.Where(x => x.Id == viewprofile.Id).FirstOrDefault();
+                        if (permission != null)
+                        {
+                            role.Permissions.Remove(permission);
+                        }
+                    }
+                    //
+                    if (Change[2] == true)
+                    {
+                        Role student = context.Roles.FirstOrDefault(x => x.Id == studentId.Id);
+                        var permission = context.Permissions.Where(x => x.Id == viewprofile1.Id).FirstOrDefault();
+                        student.Permissions.Add(permission);
+                    }
+                    else
+                    {
+                        Role role = context.Roles.Where(x => x.Id == studentId.Id).FirstOrDefault();
+                        var permission = role.Permissions.Where(x => x.Id == viewprofile1.Id).FirstOrDefault();
+                        if (permission != null)
+                        {
+                            role.Permissions.Remove(permission);
+                        }
+                    }
+                    //
+                    if (Change[3] == true)
+                    {
+                        Role student = context.Roles.FirstOrDefault(x => x.Id == teacherId.Id);
+                        var permission = context.Permissions.Where(x => x.Id == viewprofile1.Id).FirstOrDefault();
+                        student.Permissions.Add(permission);
+                    }
+                    else
+                    {
+                        Role role = context.Roles.Where(x => x.Id == teacherId.Id).FirstOrDefault();
+                        var permission = role.Permissions.Where(x => x.Id == viewprofile1.Id).FirstOrDefault();
                         if (permission != null)
                         {
                             role.Permissions.Remove(permission);
@@ -92,32 +160,7 @@ namespace SchoolManagmentSystem.Controllers
             {
                 return RedirectToAction("UnAuthorized", "Account");
             }
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult AddSubjectOrStudent(List<bool> Change)
-        {
-
-            Role teacherId = context.Roles.FirstOrDefault(x => x.Name == "Teacher");
-            Permission viewprofile = context.Permissions.FirstOrDefault(x => x.Name == "AddSubjectOrStudent");
-            if (Change[0] == true)
-            {
-                Role student = context.Roles.FirstOrDefault(x => x.Id == teacherId.Id);
-                var permission = context.Permissions.Where(x => x.Id == viewprofile.Id).FirstOrDefault();
-                student.Permissions.Add(permission);
-            }
-            else
-            {
-                Role role = context.Roles.Where(x => x.Id == teacherId.Id).FirstOrDefault();
-                var permission = role.Permissions.Where(x => x.Id == viewprofile.Id).FirstOrDefault();
-                if (permission != null)
-                {
-                    role.Permissions.Remove(permission);
-                }
-            }
-            context.SaveChanges();
-            return RedirectToAction("Manage", "Managment");
+            return View(Change);
         }
 
     }

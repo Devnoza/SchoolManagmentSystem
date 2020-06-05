@@ -4,125 +4,148 @@
 }
 <h2>@ViewBag.Title</h2>
 <hr />
-<p class="big">ანგარიშის ნახვა და რედაქტირება</p>
+
 @using (Html.BeginForm())
 {
+<div class="h4">
+    <p class="big">ანგარიშის ნახვა და რედაქტირება</p>
+    <span>მოსწავლე : </span><br />
 
-    <div class="h4">
-        <span>მოსწავლე : </span><br />
-        @Html.DropDownListFor(modelItem => modelItem[0], new[] { new SelectListItem { Text = "დაშვებული", Value = "true" }, new SelectListItem { Text = "აკრძალული", Value = "false" } }, new { @class = "form-control" })
+        @if (Model[0] == true)
+        {
+            @Html.DropDownListFor(modelItem => modelItem[0], new[] { new SelectListItem { Text = "დაშვებული", Value = "true" }, new SelectListItem { Text = "აკრძალული", Value = "false" } }, new { @class = "form-control" })
+        }
+        else
+        {
+            @Html.DropDownListFor(modelItem => modelItem[0], new[] { new SelectListItem { Text = "აკრძალული", Value = "false" }, new SelectListItem { Text = "დაშვებული", Value = "true" } }, new { @class = "form-control" })
+        }
         <br>
         <span>მასწავლებელი : </span><br />
-        @Html.DropDownListFor(modelItem => modelItem[1], new[] { new SelectListItem { Text = "დაშვებული", Value = "true" }, new SelectListItem { Text = "აკრძალული", Value = "false" } }, new { @class = "form-control" })
+        @if (Model[1] == true)
+        {
+            @Html.DropDownListFor(modelItem => modelItem[1], new[] { new SelectListItem { Text = "დაშვებული", Value = "true" }, new SelectListItem { Text = "აკრძალული", Value = "false" } }, new { @class = "form-control" })
+        }
+        else
+        {
+            @Html.DropDownListFor(modelItem => modelItem[1], new[] { new SelectListItem { Text = "აკრძალული", Value = "false" }, new SelectListItem { Text = "დაშვებული", Value = "true" } }, new { @class = "form-control" })
+        }
         <br />
-        <input type="submit" placeholder="" value="შეცვლა" class="btn btn-default" new { style="color:green" } />
-        <hr />
-    </div>
-}
-<p class="big">საგნის ან მოსწავლის დამატება</p>
-@using (Html.BeginForm("AddSubjectOrStudent", "Managment", FormMethod.Post))
-{
-
-    <div class="h4">
+        <p class="big">საგნის ან მოსწავლის დამატება</p>
+        <span>მოსწავლე : </span><br />
+        @if (Model[2] == true)
+        {
+            @Html.DropDownListFor(modelItem => modelItem[2], new[] { new SelectListItem { Text = "დაშვებული", Value = "true" }, new SelectListItem { Text = "აკრძალული", Value = "false" } }, new { @class = "form-control" })
+        }
+        else
+        {
+            @Html.DropDownListFor(modelItem => modelItem[2], new[] { new SelectListItem { Text = "აკრძალული", Value = "false" }, new SelectListItem { Text = "დაშვებული", Value = "true" } }, new { @class = "form-control" })
+        }
+        <br>
         <span>მასწავლებელი : </span><br />
-        @Html.DropDownListFor(modelItem => modelItem[0], new[] { new SelectListItem { Text = "დაშვებული", Value = "true" }, new SelectListItem { Text = "აკრძალული", Value = "false" } }, new { @class = "form-control" })
-        <br />
-        <input type="submit" placeholder="" value="შეცვლა" class="btn btn-default" new { style="color:green" } />
-        <hr />
-    </div>
+        @if (Model[3] == true)
+        {
+            @Html.DropDownListFor(modelItem => modelItem[3], new[] { new SelectListItem { Text = "დაშვებული", Value = "true" }, new SelectListItem { Text = "აკრძალული", Value = "false" } }, new { @class = "form-control" })
+        }
+        else
+        {
+            @Html.DropDownListFor(modelItem => modelItem[3], new[] { new SelectListItem { Text = "აკრძალული", Value = "false" }, new SelectListItem { Text = "დაშვებული", Value = "true" } }, new { @class = "form-control" })
+        }
+    <input type="submit" placeholder="" value="შეცვლა" class="btn btn-default" new { style="color:green" } />
+</div>
 }
 
-    <style>
-        p.wrong {
-            color: green;
-            margin: 5px 0px 0px 0px;
+
+<style>
+    p.wrong {
+        color: green;
+        margin: 5px 0px 0px 0px;
+        text-align: center;
+        font-size: 13px;
+    }
+
+    p {
+        margin-left: 15px;
+    }
+
+        p.big {
             text-align: center;
-            font-size: 13px;
-        }
-
-        p {
-            margin-left: 15px;
-        }
-
-            p.big {
-                text-align: center;
-                font-size: 30px;
-                color: black;
-                padding-bottom: 32px;
-                border-bottom: 1px solid #d8d9de;
-                font-weight: bold;
-            }
-
-        select.form-control {
-            margin-top: 20px;
-        }
-
-        select#Gender, select#Role {
-            border: 2px solid black;
-            border-radius: 25px;
+            font-size: 30px;
             color: black;
-            margin-top: 22px;
-        }
-
-        input {
-            margin-top: 22px;
-            border: 2px solid;
-            height: 35px;
-            border-radius: 25px;
-            padding-left: 15px;
-        }
-
-        spam {
-            display: inline-block;
-            margin-left: 15px;
-        }
-
-        form {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        input.btn.btn-default {
-            border: 2px solid black;
-            border-radius: 25px;
-            color: black;
+            padding-bottom: 32px;
+            border-bottom: 1px solid #d8d9de;
             font-weight: bold;
         }
 
-        input.btn.btn-default {
-            width: 291px;
-            height: 35px;
-            margin-top: 20px;
-        }
+    select.form-control {
+        margin-top: 20px;
+    }
 
-        spam.surname {
-            margin-top: 5px;
-        }
+    select#Gender, select#Role {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        margin-top: 22px;
+    }
 
-        input#Gender {
-            position: relative;
-            top: 4px;
-            left: 12px;
-            height: 15px;
-        }
+    input {
+        margin-top: 22px;
+        border: 2px solid;
+        height: 35px;
+        border-radius: 25px;
+        padding-left: 15px;
+    }
 
-        spam.teacher {
-            margin-top: 10px;
-            margin-bottom: 5px;
-        }
+    spam {
+        display: inline-block;
+        margin-left: 15px;
+    }
 
-        span.text-danger.field-validation-error {
-            margin-left: 15px;
-            font-size: 13px;
-        }
+    form {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    input.btn.btn-default {
+        border: 2px solid black;
+        border-radius: 25px;
+        color: black;
+        font-weight: bold;
+    }
+
+    input.btn.btn-default {
+        width: 291px;
+        height: 35px;
+        margin-top: 20px;
+    }
+
+    spam.surname {
+        margin-top: 5px;
+    }
+
+    input#Gender {
+        position: relative;
+        top: 4px;
+        left: 12px;
+        height: 15px;
+    }
+
+    spam.teacher {
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+    span.text-danger.field-validation-error {
+        margin-left: 15px;
+        font-size: 13px;
+    }
 
 
-        input#LastName {
-            margin-bottom: 0;
-        }
+    input#LastName {
+        margin-bottom: 0;
+    }
 
-        .h4 {
-            color: black;
-        }
-    </style>
+    .h4 {
+        color: black;
+    }
+</style>
