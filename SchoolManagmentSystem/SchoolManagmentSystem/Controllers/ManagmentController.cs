@@ -20,8 +20,7 @@ namespace SchoolManagmentSystem.Controllers
         public ActionResult Manage()
         {
             Role adminid = context.Roles.FirstOrDefault(x => x.Name == "Admin");
-            if (Session["UserRoleId"] != null)
-            {
+
                 if (int.Parse(Session["UserRoleId"].ToString()) == adminid.Id)
                 {
                     List<bool> Change = new List<bool>();
@@ -67,11 +66,6 @@ namespace SchoolManagmentSystem.Controllers
                 {
                     return RedirectToAction("UnPermissioned", "Account");
                 }
-            }
-            else
-            {
-                return RedirectToAction("UnAuthorized", "Account");
-            }
         }
         [HttpPost]
         public ActionResult Manage(List<bool> Change)
